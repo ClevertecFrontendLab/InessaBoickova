@@ -1,0 +1,31 @@
+@use '../../styles/base/mixins' as *;
+
+.header {
+    background: #FFFFFF;
+    padding: 26px 0 15px 0;
+    &__wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }    
+    &__user {
+        display: flex;
+        align-items: center;
+        h3 {
+            @include fz14(null, $main-text-color,18px);
+            margin-right: 10px;
+            font-weight: 600;
+        }
+    }     
+    &__title {
+        margin-right: 318px;
+        h1 {
+            @include fz32(2px);
+        }
+    } 
+    &__hamburger {
+        display: none;
+    }
+}
+   
+            

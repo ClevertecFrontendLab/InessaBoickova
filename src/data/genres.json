@@ -1,0 +1,99 @@
+{
+    "genres": [
+      {
+        "genre": "Все книги",
+        "number": null,
+        "category": "all",
+        "id": "0"
+      },
+      {
+        "genre": "Бизнес-книги ",
+        "number": "14",
+        "category": "business",
+        "id": "1"
+      },
+      {
+        "genre": "Детективы",
+        "number": "8",
+        "category": "detectives",
+        "id": "2"
+      },
+      {
+        "genre": "Детские книги",
+        "number": "14",
+        "category": "childish",
+        "id": "3"
+      },
+      {
+        "genre": "Зарубежная литература",
+        "number": "2",
+        "category": "foreign",
+        "id": "4"
+      },
+      {
+        "genre": "История",
+        "number": "5",
+        "category": "history",
+        "id": "5"
+      },
+      {
+        "genre": "Классическая литература ",
+        "number": "12",
+        "category": "classic",
+        "id": "6"
+      },
+      {
+        "genre": "Книги по сихологии",
+        "number": "11",
+        "category": "psychology",
+        "id": "7"
+      },
+      {
+        "genre": "Компьютерная литература",
+        "number": "54",
+        "category": "computer",
+        "id": "8"
+      },
+      {
+        "genre": "Культура и искусство",
+        "number": "5",
+        "category": "culture",
+        "id": "9"
+      },
+      {
+        "genre": "Наука и образование",
+        "number": "2",
+        "category": "science",
+        "id": "10"
+      },
+      {
+        "genre": "Публицистическая литература",
+        "number": "0",
+        "category": "publicistic",
+        "id": "11"
+      },
+      {
+        "genre": "Справочники",
+        "number": "10",
+        "category": "references",
+        "id": "12"
+      },
+      {
+        "genre": "Фантастика",
+        "number": "12",
+        "category": "fantasy",
+        "id": "13"
+      },
+      {
+        "genre": "Юмористическая литература",
+        "number": "8",
+        "category": "humorous",
+        "id": "14"
+      }
+    ]
+}
+
+
+
+
+

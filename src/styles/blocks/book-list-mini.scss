@@ -1,0 +1,16 @@
+@use '../../styles/base/mixins' as *;
+
+.list-mini {
+    margin-top: 25px;
+    padding: 20px;
+    background: #F9F9FA;
+    &__wrapper {
+        display: flex;
+    }
+    span {
+        margin: 0 15px;
+    }
+    h4 {
+        @include fz14(1.2px,null,18px);
+    }
+}

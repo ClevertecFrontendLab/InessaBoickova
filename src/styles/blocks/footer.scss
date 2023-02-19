@@ -1,6 +1,7 @@
 @use '../../styles/base/mixins' as *;
 
 .footer {
+    grid-row: 3;
     &__divider {
         height: 1px;
         width: 100%;

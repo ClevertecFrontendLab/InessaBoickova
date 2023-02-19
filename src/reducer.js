@@ -1,7 +1,7 @@
 const initialState = {
   style: 'book-column',
   navMenuOpen: false,
-  showListBook: true,
+  showListBook: false,
   booksList : [],
   book: [],
   listOfGenres: [],

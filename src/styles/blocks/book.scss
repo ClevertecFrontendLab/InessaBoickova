@@ -3,6 +3,24 @@
 .book {
     background: #FFFFFF;
     padding-bottom: 41px;
+    &__button {
+        @include button();
+        &-booked {
+            @include button();
+            cursor: default;
+            background: #F9F9FA;
+            border: 1px solid #BFC4C9;
+            line-height: 18px;
+            color: $grey-color;
+        }
+        &-busy {
+            @include button();
+            background: #FFFFFF;
+            border: 1px solid #BFC4C9;
+            line-height: 18px;
+            color: $main-text-color;
+        }
+    }
     &__main-block {
         margin-top: 42px;
         display: flex;
@@ -21,9 +39,6 @@
             h3 {
                 @include fz18(0.8px);
                 margin: 24px 0 32px 0;
-            }
-            button {
-                @include button;
             }
             &-about {
                 margin-top: 62px;
@@ -72,7 +87,7 @@
         }
         &-small__block {
             display: grid;
-            grid-template-columns: repeat(2, 191px);
+            grid-template-columns: 191px 220px;
             row-gap: 16px;
         }
         &-big__block {

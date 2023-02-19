@@ -13,8 +13,7 @@ export const useService = () => {
         .then((response) =>  {
             dispatch(action(response.data))
         })
-        .catch( (error)=> {
-            console.log(error);
+        .catch(()=> {
             dispatch(setError(true));
         })
         .finally( () => {
@@ -27,7 +26,7 @@ export const useService = () => {
     }
 
     const getBook = (id) => {
-        onRequest(setBook,` api/books/${id}`)
+        onRequest(setBook,`api/books/${id}`)
     }
     const getListOfGenres = () => {
         onRequest(setListOfGenres,'api/categories')

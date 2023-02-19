@@ -1,26 +1,26 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { Spinner } from '../spinner/spinner';
 
 import cat from '../../resources/img/cat.png'
 import { useService } from '../../services/services';
+import { Spinner } from '../spinner/spinner';
 
 export const BookList = () => {
     const styleCard = useSelector(state=> state.style);
     const booksList = useSelector(state=> state.booksList);
     const loading = useSelector(state=> state.loading);
     const {getBooksList} = useService();
-  
+
     useEffect (()=> {
       getBooksList();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
     const list = booksList.map((item)=> {
-
+      const {rating,booking,image,title,id,authors,issueYear} = item;
       const star = [1, 2, 3, 4,5] ;
       const starList = star.map((i,index)=>{
-          const color = (index > Math.round(item.rating) - 1 ) ? 'none' : '#FFBC1F';
+          const color = (index > Math.round(rating) - 1 ) ? 'none' : '#FFBC1F';
   
           return ( 
               <svg width="21" height="19" viewBox="0 0 21 19" fill={color} key= {i}>
@@ -28,21 +28,21 @@ export const BookList = () => {
               </svg>
           )
       })
-      const classBtn = item.booking ?  'card__button-booked':  'card__button';     
-      const img = item.image ? `https://strapi.cleverland.by${item.image.url}` : cat;
-      const title = item.title.length <= 68 ? item.title : `${item.title.substring(0, 69)}...`;
-      const btnTitle = (item.booking ) 
-                    ? `занята до ${new Date(item.booking.dateOrder).toLocaleDateString().substring(0,5)}`
+      const classBtn = booking ?  'card__button-booked':  'card__button';     
+      const img = image ? `https://strapi.cleverland.by${image.url}` : cat;
+      const titleCard = title.length <= 68 ? title : `${title.substring(0, 69)}...`;
+      const btnTitle = (booking) 
+                    ? `занята до ${new Date(booking.dateOrder).toLocaleDateString().substring(0,5)}`
                     : 'Забронировать'
 
         return (
-         <NavLink to={`/books/:category/${item.id}`} key={item.id} >
+         <NavLink to={`/books/:category/${id}`} key={id} >
              <div className="card" data-test-id='card' >
                 <img src={img} alt="img" className='card__img' />
                  <div className="card__wrapper">
-                    <div className="card__score"> {(item.rating)? starList : <h2>ещё нет оценок</h2>} </div>
-                    <h3 className='card__title'> {title}</h3>
-                    <h4 className='card__subtitle'>{item.authors[0]},{item.issueYear} </h4>
+                    <div className="card__score"> {(rating)? starList : <h2>ещё нет оценок</h2>} </div>
+                    <h3 className='card__title'> {titleCard}</h3>
+                    <h4 className='card__subtitle'>{authors[0]},{issueYear} </h4>
                     <button className={classBtn} type='button'> {btnTitle} </button>
               </div>
         </div>

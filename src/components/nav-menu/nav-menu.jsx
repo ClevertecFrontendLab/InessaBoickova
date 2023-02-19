@@ -4,18 +4,24 @@ import { NavLink, useLocation } from 'react-router-dom';
 import classNames from 'classnames';
 
 import {hideListMenu,openNavMenu,showListMenu} from '../../actions'
-import data from '../../data/genres.json'
 import close_vector from '../../resources/icon/close_vector.svg';
 import raise_vector from '../../resources/icon/raise_vector.svg';
+import { useService } from '../../services/services';
 
 export const NavMenu = () => {
     const navMenuOpen = useSelector(state => state.navMenuOpen);
     const showListBook = useSelector(state => state.showListBook);
-    const {genres} = data;
+    const listOfGenres = useSelector(state => state.listOfGenres);
     const ref = useRef();
     const location = useLocation();
    
     const dispatch = useDispatch();
+    const {getListOfGenres} = useService();
+
+    useEffect (()=> {
+        getListOfGenres();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
 
     useEffect (()=> {
         if ( location.pathname !== '/books' &&  location.pathname !== '/books/all'){
@@ -44,39 +50,23 @@ export const NavMenu = () => {
    
     },[dispatch, navMenuOpen]);
 
-
     const testShowcase = (window.innerWidth < 769) ? 'burger-showcase' : 'navigation-showcase';
     const testTerms =(window.innerWidth < 769) ? 'burger-terms': 'navigation-terms';
     const testContract= (window.innerWidth < 769) ? 'burger-contract' : 'navigation-contract' ;
     const testAllBooks = (window.innerWidth < 769) ? 'burger-books' : 'navigation-books' ;
     
-    const list = genres.map((i,index)=>{
 
-        if (index === 0) {
-            return (
-                <li key={i.id}>
-                    <NavLink data-test-id={testAllBooks} className={({isActive}) => isActive ? 'active__link': 'menu__link '} 
-                    to={`/books/${i.category}`}>
-                        <p> {i.genre} <span>{i.number}</span></p>
-                    </NavLink>
-                </li>
-            )
-        }
-
-        return (
+    const list = listOfGenres.map((i)=> (
             <li key={i.id}>
                 <NavLink  className={({isActive}) => isActive ? 'active__link': 'menu__link '} 
-                to={`/books/${i.category}`}>
-                    <p> {i.genre} <span>{i.number}</span></p>
+                to={`/books/${i.path}`}>
+                    <p> {i.name} </p>
                 </NavLink>
             </li>
-        ) 
-    })
+        ))        
 
     return (
-        
         <section className={classNames('menu', {visible : navMenuOpen})} ref={ref} data-test-id='burger-navigation' >
-            
             <ul className='menu__list' > 
                    
                 <div className='menu__list-wrap'>
@@ -88,9 +78,16 @@ export const NavMenu = () => {
                     </NavLink> 
                 </div>
 
-                   
                 <div className={classNames('menu_list_hide', {menu_list_hide_visible : showListBook})}>
-                    {list}  
+                
+                    {list.length > 3 ? [<li key= {list.length + 1}>
+                        <NavLink data-test-id={testAllBooks} className={({isActive}) => isActive ? 'active__link': 'menu__link '} 
+                            to="/books/all">
+                            <p> Все книги</p>
+                        </NavLink>
+                    </li>, ...list]
+                      : null}
+
                 </div>         
             
                 <li className='menu__link-mt' >

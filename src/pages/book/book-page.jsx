@@ -6,6 +6,7 @@ import { NavMenu } from '../../components/nav-menu/nav-menu';
 
 export const BookPage = () => (
     <section className='book-page'>
+       
         <NavMenu/>
         <div className="book-page__headers">
             <Header/>

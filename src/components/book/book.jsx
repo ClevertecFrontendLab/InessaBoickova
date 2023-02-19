@@ -62,15 +62,15 @@ export const Book = () => {
             </div>
             )
         }) : null
+        const img = images ? `https://strapi.cleverland.by${images[0].url}` : null;
 
         return (
             <section className="book">
             <div className="container">
                  <div className="book__main-block">
                      <div className="book__main-block-img">
-                         {images === 1 
-                         ? <img data-test-id='slide-big' src={`https://strapi.cleverland.by${images[0].url}`} alt='img'/>  
-                         : <SwiperSlider img= {images}/>}
+                        <img data-test-id='slide-big' src={img} alt='img'/>  
+                        
                      </div>
                      <div className="book__main-block-descr">
                          <h2>{title}</h2>

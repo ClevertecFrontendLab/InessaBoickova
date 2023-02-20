@@ -1,0 +1,103 @@
+@use '../../styles/base/mixins' as *;
+
+@media(max-width:992px) {
+    .filter {
+        &__input {
+            &-search {
+                &-input {
+                    padding: 10px 10px 10px 40px;
+                    width: 220px;
+                    font-size: 14px;
+                }
+            }
+            &-rating {
+                &::before {
+                    left: 25px; 
+                }    
+                &-input {
+                    width: 120px;
+                    font-size: 14px;
+                    padding: 10px 0 10px 28px;
+                }     
+            }
+        }        
+    }
+}
+
+@media(max-width:768px) {
+    .filter {
+        justify-content: space-around;
+        &__input {
+            &-search {
+                &-input {
+                    width: 274px;
+                }  
+            }
+            &-rating {
+                &::before {
+                    left: 34px; 
+                }    
+                &-input {
+                    width: 148px;
+                    padding: 10px 0 10px 40px;
+                }     
+            } 
+        }
+        &__btn {
+            width: 112px;
+        }   
+    }  
+}       
+       
+@media(max-width: 700px) {
+    .filter {
+        justify-content: space-between;
+        padding: 0 0px 0 17px;
+        &__input {
+            display: flex;
+            &-search {
+                display: none;
+                &-btn {
+                    visibility: visible;
+                    width: 32px;
+                    height: 32px;
+                    border: none;
+                    background: #FFFFFF;
+                    @include shadow ();
+                    img {
+                        margin: 1px 0 0 8px;
+                    }
+                }
+                &-button-close {
+                    height: 16px;
+                    width: 16px;
+                    visibility: visible;
+                    position: absolute;
+                    top: 8px;
+                    right: 17px;
+                    border: none;
+                    background: #FFFFFF;
+                }
+            }
+            &-rating {
+                &-input {
+                    padding: 0;
+                    font-size: 0px;
+                    width: 32px;
+                    height: 32px;
+                } 
+                &::before {
+                    left: 25px;
+                    top: 8px;
+                }    
+            }
+        }
+        &__btn {
+            &-button {
+                width: 32px;
+                height: 32px;
+            } 
+        }  
+    }
+}
+

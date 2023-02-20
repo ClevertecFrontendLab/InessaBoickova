@@ -47,8 +47,7 @@
                     margin-bottom: 32px;
                 }
                 p {
-                    @include fz16(0.1px,null);
-                    color: #363636;
+                    @include fz16(0.1px,null,$main-text-color);
                     margin-bottom: 25px;
                 }
             }
@@ -66,7 +65,7 @@
             align-items: center;
             justify-content: space-between;
             span {
-                @include fz18(null,$main-text-color);
+                @include fz18(0.1px,$main-text-color);
             }
         }
     }
@@ -83,8 +82,7 @@
                 font-weight: 600;
             }
             span {
-                @include fz16(0.1px,null);
-                color: #363636;
+                @include fz16(0.1px,null,$main-text-color);
             }
         }
         &-small__block {
@@ -137,9 +135,8 @@
                 justify-content: space-between;
             }
             &__descr {
-                @include fz16(0.1px,null);
+                @include fz16(0.1px,null,$main-text-color);
                 margin-top: 20px;
-                color: #363636;
             }
             &__user {
                 display: flex;

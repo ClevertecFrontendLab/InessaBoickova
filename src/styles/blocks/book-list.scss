@@ -10,7 +10,6 @@
         height: 218px;
         padding: 24px 24px 16px 16px;
         background: #FFFFFF;
-        
         &__wrapper {
             display: flex;
             justify-content: start;
@@ -82,22 +81,20 @@
             width: 174px;
         }
         &__title {
-            @include fz14(null,$main-text-color,18px);
+            @include fz14(0.1px,$main-text-color,18px);
             height: 54px;
             display: flex;
             align-items: center;
             margin-top: 20px;
             font-weight: 600;
-            letter-spacing: 0.1px;
             font-style: normal;
         }
         &__subtitle {
             display: flex;
             align-items: center;
             height: 36px;
-            @include fz14(null,#727272,18px);
+            @include fz14(0.1px,#727272,18px);
             height: 36px;
-            letter-spacing: 0.1px;
             font-style: normal;
         }
         &__button {

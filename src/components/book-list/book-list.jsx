@@ -31,7 +31,7 @@ export const BookList = () => {
       })
       const classBtn = booking ?  'card__button-booked':  'card__button';     
       const img = image ? `https://strapi.cleverland.by${image.url}` : cat;
-      const titleCard = title.length <= 50 ? title : `${title.substring(0, 50)}...`;
+      const titleCard = title.length <= 40 ? title : `${title.substring(0, 40)}...`;
       const btnTitle = (booking) 
                     ? `занята до ${new Date(booking.dateOrder).toLocaleDateString().substring(0,5)}`
                     : 'Забронировать'

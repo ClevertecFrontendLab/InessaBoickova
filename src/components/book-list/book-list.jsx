@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 
 import cat from '../../resources/img/cat.png'
 import { useService } from '../../services/services';
@@ -11,12 +11,13 @@ export const BookList = () => {
     const booksList = useSelector(state=> state.booksList);
     const loading = useSelector(state=> state.loading);
     const {getBooksList} = useService();
+    const {category} = useParams();
 
     useEffect (()=> {
       getBooksList();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
-    const list = booksList.map((item)=> {
+    const list = booksList.map((item,ind) => {
       const {rating,booking,image,title,id,authors,issueYear} = item;
       const star = [1, 2, 3, 4,5] ;
       const starList = star.map((i,index)=>{
@@ -30,24 +31,27 @@ export const BookList = () => {
       })
       const classBtn = booking ?  'card__button-booked':  'card__button';     
       const img = image ? `https://strapi.cleverland.by${image.url}` : cat;
-      const titleCard = title.length <= 68 ? title : `${title.substring(0, 69)}...`;
+      const titleCard = title.length <= 50 ? title : `${title.substring(0, 50)}...`;
       const btnTitle = (booking) 
                     ? `занята до ${new Date(booking.dateOrder).toLocaleDateString().substring(0,5)}`
                     : 'Забронировать'
 
-        return (
-         <NavLink to={`/books/:category/${id}`} key={id} >
-             <div className="card" data-test-id='card' >
-                <img src={img} alt="img" className='card__img' />
-                 <div className="card__wrapper">
-                    <div className="card__score"> {(rating)? starList : <h2>ещё нет оценок</h2>} </div>
-                    <h3 className='card__title'> {titleCard}</h3>
-                    <h4 className='card__subtitle'>{authors[0]},{issueYear} </h4>
-                    <button className={classBtn} type='button'> {btnTitle} </button>
-              </div>
-        </div>
-         </NavLink>
-        )
+        if (ind < 11) {
+          return (
+            <NavLink to={`/books/${category}/${id}`} key={id} >
+                <div className="card" data-test-id='card' >
+                   <img src={img} alt="img" className='card__img' />
+                    <div className="card__wrapper">
+                       <div className="card__score"> {(rating)? starList : <h2>ещё нет оценок</h2>} </div>
+                       <h3 className='card__title'> {titleCard}</h3>
+                       <h4 className='card__subtitle'>{authors[0]},{issueYear} </h4>
+                       <button className={classBtn} type='button'> {btnTitle} </button>
+                 </div>
+           </div>
+            </NavLink>
+           )
+        }
+        return null;
     })
 
     return (

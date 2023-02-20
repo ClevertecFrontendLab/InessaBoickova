@@ -14,11 +14,12 @@
             margin: 16px 0 0 22px;
         }
         &-mt {
-            margin: 21px 0 42px 0;
+            margin: 42px  0;
         }    
     }
     .active__link {
-        @include fz16(0.6px,null,24px);
+        @include fz16(0.6px,null,28px);
+        font-weight: 700;
         p {
             margin: 16px 0 0 22px;
             background-image: $gradient-color;

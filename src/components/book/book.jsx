@@ -13,7 +13,7 @@ import { Spinner } from '../spinner/spinner';
 export const Book = () => {
     const {bookId} = useParams();
     const {getBook} = useService();
-    const [showReviewsList , setshowReviewsList] = useState(false);
+    const [showReviewsList , setshowReviewsList] = useState(true);
     const loading = useSelector(state=> state.loading);
     const book = useSelector(state=> state.book);
 

@@ -82,7 +82,7 @@
             width: 174px;
         }
         &__title {
-            @include fz14(null,$main-text-color,14px);
+            @include fz14(null,$main-text-color,18px);
             height: 54px;
             display: flex;
             align-items: center;
@@ -134,6 +134,7 @@
         justify-content: space-between;
         height: 19px;
         margin-top: 18px;
+        color: #A7A7A7;
         h2 {
             @include fz14(null,null,18px);
         }

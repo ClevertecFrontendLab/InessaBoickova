@@ -36,19 +36,36 @@ export const BookList = () => {
                     ? `занята до ${new Date(booking.dateOrder).toLocaleDateString().substring(0,5)}`
                     : 'Забронировать'
 
-          return (
-            <NavLink to={`/books/${category}/${id}`} key={id} >
-                <div className="card" data-test-id='card' >
-                   <img src={img} alt="img" className='card__img' />
-                    <div className="card__wrapper">
-                       <div className="card__score"> {(rating)? starList : <h2>ещё нет оценок</h2>} </div>
-                       <h3 className='card__title'> {titleCard}</h3>
-                       <h4 className='card__subtitle'>{authors[0]},{issueYear} </h4>
-                       <button className={classBtn} type='button'> {btnTitle} </button>
-                 </div>
-           </div>
-            </NavLink>
-           )
+          if (ind < 11) {
+            return (
+              <NavLink to={`/books/${category}/${id}`} key={id} >
+                  <div className="card" data-test-id='card' >
+                     <img src={img} alt="img" className='card__img' />
+                      <div className="card__wrapper">
+                         <div className="card__score"> {(rating)? starList : <h2>ещё нет оценок</h2>} </div>
+                         <h3 className='card__title'> {titleCard}</h3>
+                         <h4 className='card__subtitle'>{authors[0]},{issueYear} </h4>
+                         <button className={classBtn} type='button'> {btnTitle} </button>
+                   </div>
+             </div>
+              </NavLink>
+             )
+          }
+
+            return (
+              <NavLink to={`/books/${category}/${id}`} key={id} className= ' hide'>
+                  <div className="card" data-test-id='card' >
+                     <img src={img} alt="img" className='card__img' />
+                      <div className="card__wrapper">
+                         <div className="card__score"> {(rating)? starList : <h2>ещё нет оценок</h2>} </div>
+                         <h3 className='card__title'> {titleCard}</h3>
+                         <h4 className='card__subtitle'>{authors[0]},{issueYear} </h4>
+                         <button className={classBtn} type='button'> {btnTitle} </button>
+                   </div>
+             </div>
+              </NavLink>
+             )
+          
     })
 
     return (

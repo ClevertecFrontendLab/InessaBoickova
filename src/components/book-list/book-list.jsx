@@ -36,7 +36,6 @@ export const BookList = () => {
                     ? `занята до ${new Date(booking.dateOrder).toLocaleDateString().substring(0,5)}`
                     : 'Забронировать'
 
-        if (ind < 11) {
           return (
             <NavLink to={`/books/${category}/${id}`} key={id} >
                 <div className="card" data-test-id='card' >
@@ -50,8 +49,6 @@ export const BookList = () => {
            </div>
             </NavLink>
            )
-        }
-        return null;
     })
 
     return (

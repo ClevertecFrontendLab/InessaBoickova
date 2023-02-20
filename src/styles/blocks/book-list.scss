@@ -88,6 +88,8 @@
             align-items: center;
             margin-top: 20px;
             font-weight: 600;
+            letter-spacing: 0.1px;
+            font-style: normal;
         }
         &__subtitle {
             display: flex;
@@ -95,6 +97,8 @@
             height: 36px;
             @include fz14(null,#727272,18px);
             height: 36px;
+            letter-spacing: 0.1px;
+            font-style: normal;
         }
         &__button {
             margin: 19px 0 16px 0;
@@ -136,14 +140,10 @@
         margin-top: 18px;
         color: #A7A7A7;
         h2 {
-            @include fz14(null,null,18px);
+            @include fz14(0.1px,null,18px);
+            font-family: 'Montserrat';
+            font-style: normal;
         }
     }
-}
-
-.hide {
-    visibility: hidden;
-    position: absolute;
-    left: -100%;
 }
 

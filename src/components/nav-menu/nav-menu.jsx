@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 import {useDispatch,useSelector } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
 import classNames from 'classnames';
@@ -17,9 +17,10 @@ export const NavMenu = () => {
    
     const dispatch = useDispatch();
     const {getListOfGenres} = useService();
-
+ 
+    
     useEffect (()=> {
-        getListOfGenres();
+        getListOfGenres()
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
@@ -56,11 +57,11 @@ export const NavMenu = () => {
     const testAllBooks = (window.innerWidth < 769) ? 'burger-books' : 'navigation-books' ;
     
 
-    const list = listOfGenres.map((i)=> (
+    const list = listOfGenres.map((i,index)=> (
             <li key={i.id}>
                 <NavLink  className={({isActive}) => isActive ? 'active__link': 'menu__link '} 
                 to={`/books/${i.path}`}>
-                    <p> {i.name} </p>
+                    <p> {i.name} <span>{index}</span> </p>  
                 </NavLink>
             </li>
         ))        
@@ -90,13 +91,13 @@ export const NavMenu = () => {
 
                 </div>         
             
-                <li className='menu__link-mt' >
+                <li className='menu__link-mt menu__link-main' >
                     <NavLink data-test-id={testTerms}  to='/terms'
                     className={({isActive}) => isActive ? 'active_link': 'menu__link-main' }>
                         Правила пользования
                     </NavLink>
                 </li>
-                <li>
+                <li className='menu__link-main'>
                     <NavLink data-test-id={testContract} to='/contract'
                     className={({isActive}) => isActive ? 'active_link' : 'menu__link-main'}>
                        Договор оферты

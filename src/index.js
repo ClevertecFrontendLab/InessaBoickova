@@ -18,10 +18,9 @@ const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-  // eslint-disable-next-line react/jsx-filename-extension
-  <React.StrictMode>
-     <Provider store={store}>
+     // eslint-disable-next-line react/jsx-filename-extension
      <HashRouter>
+       <Provider store={store}>
           <Routes>
             <Route path='/' element={<Navigate to="/books/all"/>} />
                 <Route element= {<MainPage/>}>
@@ -34,8 +33,8 @@ root.render(
                 <Route path='/exit'  element={<MainPage/>}/>
                 <Route path='/books/:category/:bookId' element={<BookPage />}/>
           </Routes>
+          </Provider>
         </HashRouter>
-     </Provider>
-  </React.StrictMode>
+     
 );
 

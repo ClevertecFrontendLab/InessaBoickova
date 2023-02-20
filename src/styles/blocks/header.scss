@@ -13,14 +13,26 @@
         align-items: center;
         h3 {
             @include fz14(null, $main-text-color,18px);
+            letter-spacing: 0.1px;
             margin-right: 10px;
             font-weight: 600;
         }
     }     
     &__title {
-        margin-right: 318px;
+        margin-right: 318px;  
+        font-style: normal;
+        font-weight: 700;
+        font-size: 32px;
+        line-height: 40px;
+        letter-spacing: 0.1px;
+        color: #363636 ;
         h1 {
-            @include fz32(2px);
+            font-style: normal;
+            font-weight: 700;
+            font-size: 32px;
+            line-height: 40px;
+            letter-spacing: 0.1px;
+            color: #363636
         }
     } 
     &__hamburger {

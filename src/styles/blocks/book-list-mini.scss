@@ -13,5 +13,6 @@
     h4 {
         @include fz14(1.2px,null,18px);
         color: #A7A7A7;
+        letter-spacing: 0.1px;
     }
 }

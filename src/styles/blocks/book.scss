@@ -34,20 +34,20 @@
         &-descr {
             margin-left: 30px;
             h2 {
-                @include fz32(1.9px);
+                @include fz32(0.1px);
             }
             h3 {
-                @include fz18(0.8px);
+                @include fz18(0.1px);
                 margin: 24px 0 32px 0;
             }
             &-about {
                 margin-top: 62px;
                 h4 {
-                    @include fz18(null,$main-text-color);
+                    @include fz18(0.1px,$main-text-color);
                     margin-bottom: 32px;
                 }
                 p {
-                    @include fz16(1px,null);
+                    @include fz16(0.1px,null);
                     color: #363636;
                     margin-bottom: 25px;
                 }
@@ -57,7 +57,7 @@
     &__score {
         margin-top: 42px;
         h2 { 
-            @include fz18(1.7px,$main-text-color);
+            @include fz18(0.1px,$main-text-color);
         }
         &-star {
             margin-top: 15px;
@@ -73,17 +73,17 @@
     &__detail {
         margin-top: 63px;
         h2 {
-            @include fz18(1.3px,$main-text-color);
+            @include fz18(0.1px,$main-text-color);
         }
         &-wrapper {
             display: flex;
             justify-content: space-between;
             p {
-                @include fz16(1px, $grey-color);
+                @include fz16(0.1px, $grey-color);
                 font-weight: 600;
             }
             span {
-                @include fz16(0.7px,null);
+                @include fz16(0.1px,null);
                 color: #363636;
             }
         }
@@ -102,7 +102,7 @@
         &-title {
             display: flex;
             align-items: center;
-            @include fz18(0.6px,$main-text-color);
+            @include fz18(0.1px,$main-text-color);
             span {
                 margin: 4px 0 0 6px;
                 @include fz14();
@@ -126,7 +126,7 @@
                 display: flex;
                 align-items: center;
                 h4 {
-                    @include fz16(1px,#727272);
+                    @include fz16(0.1px,#727272);
                     margin-left: 26px;
                 }
             }
@@ -137,7 +137,7 @@
                 justify-content: space-between;
             }
             &__descr {
-                @include fz16(1.3px,null);
+                @include fz16(0.1px,null);
                 margin-top: 20px;
                 color: #363636;
             }

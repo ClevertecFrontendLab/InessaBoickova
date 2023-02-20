@@ -41,6 +41,8 @@
             &-input {
                 @include shadow ();
                 @include fz14();
+                font-style: normal;
+                line-height: 18px;
                 padding: 10px 10px 10px 40px;
                 border: none;
                 width: 350px;

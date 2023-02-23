@@ -66,7 +66,7 @@
 
 .book-column {
     display: grid;
-    grid-template-columns: repeat(4,190px);
+    grid-template-columns: repeat(4,auto);
     column-gap: 21.5px;
     row-gap: 24px;
     .card {
@@ -87,15 +87,12 @@
             align-items: center;
             margin-top: 20px;
             font-weight: 600;
-            font-style: normal;
         }
         &__subtitle {
             display: flex;
             align-items: center;
             height: 36px;
             @include fz14(0.1px,#727272,18px);
-            height: 36px;
-            font-style: normal;
         }
         &__button {
             margin: 19px 0 16px 0;

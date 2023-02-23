@@ -8,7 +8,7 @@ import { Header } from '../../components/header/header';
 import { NavMenu } from '../../components/nav-menu/nav-menu';
 
 export const BookPage = () => {
-    const error = useSelector(state=> state.error);
+    const error = useSelector(state=> state.book.error);
     
     return (
         <section className='book-page'>

@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux';
 
 export const BookListMini = () => {
-    const book = useSelector(state=> state.book);
-    const error = useSelector(state=> state.error);
+    const book = useSelector(state=> state.book.book);
+    const error = useSelector(state=> state.book.error);
 
     return (
         <div className='list-mini'>

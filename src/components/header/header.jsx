@@ -3,13 +3,13 @@ import { useDispatch,useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 
-import {openNavMenu} from '../../actions'
+import {openNavMenu} from '../../actions/actions'
 import user from '../../resources/icon/avatar.png';
 import logo from '../../resources/icon/logo.png';
 
 export const Header = () => {
         const dispatch = useDispatch();
-        const navMenuOpen = useSelector(state=> state.navMenuOpen);
+        const navMenuOpen = useSelector(state=> state.listMenu.navMenuOpen);
 
         const disableScrolling = ()=> {
                 const x = window.scrollX;
@@ -21,7 +21,8 @@ export const Header = () => {
         const enableScrolling = () => {
                 window.onscroll= () => {};
         }
-        
+     
+
         if (navMenuOpen){
                 disableScrolling();
         }else {
@@ -29,7 +30,7 @@ export const Header = () => {
         }
 
         const showNavMenu = () => {
-                dispatch(openNavMenu());
+                dispatch(openNavMenu()); 
         }
 
         return (

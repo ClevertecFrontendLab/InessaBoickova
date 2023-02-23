@@ -12,27 +12,15 @@
         display: flex;
         align-items: center;
         h3 {
-            @include fz14(null, $main-text-color,18px);
-            letter-spacing: 0.1px;
+            @include fz14(0.1px, $main-text-color,18px);
             margin-right: 10px;
             font-weight: 600;
         }
     }     
     &__title {
-        margin-right: 318px;  
-        font-style: normal;
-        font-weight: 700;
-        font-size: 32px;
-        line-height: 40px;
-        letter-spacing: 0.1px;
-        color: #363636 ;
+        margin-right: 318px; 
         h1 {
-            font-style: normal;
-            font-weight: 700;
-            font-size: 32px;
-            line-height: 40px;
-            letter-spacing: 0.1px;
-            color: #363636
+            @include fz32();
         }
     } 
     &__hamburger {

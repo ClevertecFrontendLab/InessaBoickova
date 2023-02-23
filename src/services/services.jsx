@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import {useDispatch } from 'react-redux';
 import axios from 'axios'; 
 
-import { setBook,setBooksList,setError,setListOfGenres,setLoading} from '../actions';
+import { setBook,setBooksList,setError,setListOfGenres,setLoading} from '../actions/actions';
 
 export const useService = () => {
     const link = 'https://strapi.cleverland.by/';

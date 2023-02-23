@@ -1,6 +1,7 @@
 const initialState = {
     activeFilter: 'Все',
     filteredBookList: [],
+    numOfListOfGenres: [],
     raiseFilter : false
 }
   

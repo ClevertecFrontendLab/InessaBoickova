@@ -1,5 +1,6 @@
+/* eslint-disable eqeqeq */
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import {useSelector } from 'react-redux';
 import { NavLink, useParams } from 'react-router-dom';
 import { createSelector } from 'reselect';
 
@@ -10,17 +11,30 @@ import { EmptyBookList } from '../empty-book-list/empty-book-list';
 import { Spinner } from '../spinner/spinner';
 
 export const BookList = () => {
-    const raiseFilter = useSelector(state => state.filters.raiseFilter)
-
+    const raiseFilter = useSelector(state => state.filters.raiseFilter);
+    
     const filteredBookListSelector = createSelector(
       (state) => state.filters.activeFilter,
       (state) => state.book.booksList,
       (filter , booksList) => {
-        if (filter === 'Все'){
+        if (filter === 'Все'){ 
           return booksList
         }
+
+        // eslint-disable-next-line array-callback-return, consistent-return
+        const result =  booksList.filter((item) => {
+            if (item.categories.length <= 1){
+                return item.categories[0] === filter
+            }
         
-        return booksList.filter((item)=> item.categories[0] === filter);
+            for (let i = 0; i <= item.categories.length ; i++){
+                if (item.categories[i] === filter){
+                    return item.categories[i] === filter
+                }
+            }
+        });
+        
+        return result;
       }
     )
 

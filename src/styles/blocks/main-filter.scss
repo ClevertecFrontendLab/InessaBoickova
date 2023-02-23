@@ -28,6 +28,9 @@
                 visibility: hidden;
                 height: 0;
                 width: 0;
+                svg {
+                    height: 38px;
+                }
             }
             &-input {
                 @include shadow ();

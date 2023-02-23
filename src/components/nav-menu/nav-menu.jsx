@@ -1,7 +1,8 @@
 import {useEffect, useRef } from 'react';
 import {useDispatch,useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink} from 'react-router-dom';
 import classNames from 'classnames';
+import { createSelector } from 'reselect';
 
 import {openNavMenu,setActiveFilter,showListMenu} from '../../actions/actions'
 import close_vector from '../../resources/icon/close_vector.svg';
@@ -12,10 +13,27 @@ export const NavMenu = () => {
     const dispatch = useDispatch();
     const navMenuOpen = useSelector(state => state.listMenu.navMenuOpen);
     const showListBook = useSelector(state => state.listMenu.showListBook);
-    const listOfGenres = useSelector(state => state.book.listOfGenres);
-
     const ref = useRef();
     const {getListOfGenres} = useService();
+
+    const listSelector = createSelector(
+        (state) => state.book.booksList,
+        (state) => state.book.listOfGenres,
+        (booksList , listOfGenres) => {
+            const arr = booksList.map((item) => item.categories)
+            // eslint-disable-next-line no-return-assign, no-param-reassign, no-sequences
+            const list = arr.flat(3).reduce((cnt, cur) => (cnt[cur] = cnt[cur] + 1 || 1, cnt), {});
+            // eslint-disable-next-line padding-line-between-statements, array-callback-return
+            const result = listOfGenres.map((i)=> ({
+                    ...i,
+                    number: list[i.name],
+                }))
+
+            return result; 
+        }
+      )
+
+    const ListOfGenres = useSelector(listSelector);
 
     useEffect (()=> {
         getListOfGenres()
@@ -55,19 +73,19 @@ export const NavMenu = () => {
     const testTerms =(window.innerWidth < 769) ? 'burger-terms': 'navigation-terms';
     const testContract= (window.innerWidth < 769) ? 'burger-contract' : 'navigation-contract' ;
     const testAllBooks = (window.innerWidth < 769) ? 'burger-books' : 'navigation-books' ;
-
-    const list = listOfGenres.map((i,index)=>{
-        const {name,path}= i;
-
+  
+    const list = ListOfGenres.map((i)=>{
+        const {name,path,number}= i;
+        
         return  (
             <li key={name}>
                 <NavLink  className={({isActive}) => isActive ? 'active__link': 'menu__link '} onClick={()=> dispatch(setActiveFilter(name))}
                 to={`/books/${path}`}>
-                    <p> {name} <span>{index}</span> </p>  
+                    <p> {name} <span>{number}</span> </p>  
                 </NavLink>
             </li>
         )
-    })    
+    })
    
     return (
         <section className={classNames('menu', {visible : navMenuOpen})} ref={ref} data-test-id='burger-navigation' >

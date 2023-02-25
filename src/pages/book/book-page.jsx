@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 
 import { Book } from '../../components/book/book';
-import { BookListMini } from '../../components/book-list-mini/book-list-mini';
+import { BreadCrumbs } from '../../components/bread-cumbs/bread-cumbs';
 import { ErrorMessage } from '../../components/error-message/error-message';
 import { Footer } from '../../components/footer/footer';
 import { Header } from '../../components/header/header';
@@ -15,7 +15,7 @@ export const BookPage = () => {
             <NavMenu/>
             <div className="book-page__headers">
                 <Header/>
-                <BookListMini/>
+                <BreadCrumbs/>
             </div>
             {error ? <ErrorMessage/> :  <Book/>  }
             <Footer/>

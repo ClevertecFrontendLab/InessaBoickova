@@ -1,6 +1,6 @@
 @use '../../styles/base/mixins' as *;
 
-.list-mini {
+.bread-cumbs {
     margin-top: 25px;
     padding: 20px;
     background: #F9F9FA;
@@ -10,8 +10,14 @@
     span {
         margin: 0 15px;
     }
-    h4 {
+    &__text {
         @include fz14(0.1px,null,18px);
         color: #A7A7A7;
+    }
+    &__button {
+        cursor: pointer;
+        border: none;
+        color: #A7A7A7;
+        background-color: #F9F9FA;
     }
 }

@@ -5,20 +5,22 @@
         &__input {
             &-search {
                 &-input {
-                    padding: 10px 10px 10px 40px;
-                    width: 220px;
-                    font-size: 14px;
+                    padding: 10px 10px 10px 25px;
+                    width: 197px;
+                    font-size: 12px;
+                    &-icon {
+                        left: 6px; 
+                    }  
                 }
             }
             &-rating {
+                width: 110px;
+                font-size: 12px;
+                padding: 10px 0 10px 15px;
                 &::before {
-                    left: 25px; 
+                    top: 12px;
+                    left: 7px; 
                 }    
-                &-input {
-                    width: 120px;
-                    font-size: 14px;
-                    padding: 10px 0 10px 28px;
-                }     
             }
         }        
     }
@@ -30,17 +32,22 @@
         &__input {
             &-search {
                 &-input {
+                    padding: 10px 10px 10px 40px;
                     width: 274px;
+                    font-size: 14px; 
+                    &-icon {
+                        left: 17px; 
+                    } 
                 }  
+               
             }
             &-rating {
+                width: 148px;
+                padding: 10px 0 10px 30px;
+                font-size: 14px;
                 &::before {
-                    left: 34px; 
+                    left: 17px; 
                 }    
-                &-input {
-                    width: 148px;
-                    padding: 10px 0 10px 40px;
-                }     
             } 
         }
         &__btn {
@@ -54,7 +61,9 @@
         justify-content: space-between;
         padding: 0 0px 0 17px;
         &__input {
+            position: relative;
             display: flex;
+            caret-color: rgb(248, 54, 0);
             &-search {
                 display: none;
                 &-btn {
@@ -64,8 +73,13 @@
                     border: none;
                     background: #FFFFFF;
                     @include shadow ();
-                    img {
-                        margin: 1px 0 0 8px;
+                    svg {
+                        width: 16px;
+                        height: 16px;
+                        margin: 8px 0;
+                    }
+                    &:hover svg svg path{
+                        fill:  #f87800;
                     }
                 }
                 &-button-close {
@@ -80,14 +94,12 @@
                 }
             }
             &-rating {
-                &-input {
-                    padding: 0;
-                    font-size: 0px;
-                    width: 32px;
-                    height: 32px;
-                } 
+                padding: 0;
+                font-size: 0px;
+                width: 32px;
+                height: 32px;
                 &::before {
-                    left: 25px;
+                    left: 9px;
                     top: 8px;
                 }    
             }

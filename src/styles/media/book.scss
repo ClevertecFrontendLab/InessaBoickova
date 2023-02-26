@@ -35,13 +35,6 @@
     .book-page { 
         grid-template-rows: 174px 1fr 104px;
     }
-    .list-mini {
-        margin-top: 0px;
-        h4 {
-            font-size: 12px;
-            letter-spacing: 0.8px; 
-        }
-    }
     .book {
         &__main-block {
             margin-top: 35px;
@@ -121,15 +114,6 @@
             header {
                 height: 96px;
             }
-        }
-    }
-    .list-mini {
-        margin-top: 20px;
-        padding: 24px 20px 22px 64px;
-        height: 92px;
-        h4 {
-            font-size: 16px;
-            line-height: 24px;
         }
     }
     .book {
@@ -230,14 +214,6 @@
 @media(max-width:760px) {
     .book-page { 
         grid-template-rows: 176px 1fr 104px;
-    }
-    .list-mini {
-        margin-top: -13px;
-        padding: 17px 10px 10px 16px;
-        h4 {
-            font-size: 12px;
-            line-height: 16px;
-        }
     }
     .book {
         padding: 0 0px 14px 10px;

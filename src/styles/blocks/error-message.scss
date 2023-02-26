@@ -1,3 +1,5 @@
+@use '../../styles/base/mixins' as *;
+
 .error {
     position: absolute;
     top: 60px;
@@ -26,11 +28,8 @@
         color: #FFFFFF;
     }
     &__message {
+        @include fz16();
         font-weight: 600;
-        font-size: 16px;
-        line-height: 24px;
-        letter-spacing: 0.1px;
-        color: #363636; 
     }
     &__close {
         cursor: pointer;
@@ -39,7 +38,7 @@
             display: block;
             width: 14px;
             height: 1.5px;
-            background: #363636;
+            background: $main-text-color;
         }
         span:nth-child(1){
             transform: rotate(45deg);

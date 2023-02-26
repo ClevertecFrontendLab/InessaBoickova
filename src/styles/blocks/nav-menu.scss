@@ -11,15 +11,13 @@
     &__link {
         p {
             margin: 16px 0 0 22px;
-            font-style: normal;
-            @include fz16();
             span {
-                margin-left: 3px;
-                font-weight: 400;
-                font-size: 14px;
-                line-height: 24px;
-                letter-spacing: 0.1px;
-                color: #A7A7A7;
+                @include fz14();
+               
+            }
+            .menu__name {
+                @include fz16();
+                margin-right: 6px;
             }
         }
         &-mt {
@@ -28,19 +26,22 @@
     }
     .active__link {
         p {
-            font-style: normal;
             @include fz16(null,null,28px);
             font-weight: 700;
             margin: 16px 0 0 22px;
-            background-image: $gradient-color;
-            color: transparent;
-            background-clip: text;
+            .menu__name {
+                margin-right: 6px;
+            }
+            span {
+                background-image: $gradient-color;
+                color: transparent;
+                background-clip: text;
+            }
         }   
     }
     &__link-main { 
         width: 100%;
-        @include fz18(null,$main-text-color);
-        letter-spacing: 0.1px;
+        @include fz18(0.1px,$main-text-color);
         .menu__vector {
             display: none;
         }
@@ -83,14 +84,13 @@
             display: block;
             height: 1px;
             width: calc(100% + 32px);
-            background: #363636;
+            background: $main-text-color;
         }
         &_link{
             margin-top: 42px;
         }
     }
     .menu_list_hide {
-        
         visibility: hidden;
         height: 0;
     }

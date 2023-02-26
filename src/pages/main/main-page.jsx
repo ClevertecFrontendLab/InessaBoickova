@@ -9,8 +9,8 @@ import { NavMenu } from '../../components/nav-menu/nav-menu';
 
 
 export const MainPage = () => {
-    const error = useSelector(state=> state.error);
-    const loading = useSelector(state=> state.loading);
+    const error = useSelector(state=> state.book.error);
+    const loading = useSelector(state=> state.book.loading);
 
     return (
         <div className='main-page'>

@@ -1,9 +1,10 @@
 @use '../../styles/base/mixins' as *;
+
 @media(max-width:992px) {
     .menu {
         &__link {
-            font-size: 14px;
             p {
+                font-size: 14px;
                 margin: 12px 0 0 10px;
             }
             &-mt {
@@ -11,9 +12,9 @@
             }   
         }
         .active__link {
-            font-size: 14px;
             p {
                 margin: 12px 0 0 10px;
+                font-size: 14px;
             }
         }
         &__link-main { 
@@ -45,9 +46,13 @@
         }
         &__hide {
            display: block;
+           &:before {
+            width: calc(100% + 0px);
+            margin: 52px 0  30px -9px;
+           }
         }
         &__btn {
-            width: 255px;
+            width: 50px;
             background: #F9F9FA;
         }
     }
@@ -59,8 +64,8 @@
         min-height: 442px;
         .menu {
             &__link {
-                font-size: 16px;
                 p {
+                    font-size: 16px;
                     margin: 16px 0 0 22px;
                 }
            }
@@ -72,13 +77,13 @@
                 }
             }
             &__btn {
-                right: -10px;
+                right: 200px;
             }
         }
     }
     .menu .active__link {
-        font-size: 16px;
         p {
+            font-size: 16px;
             margin: 16px 0 0 22px;
         } 
     }  
@@ -95,12 +100,13 @@
         .active_link {
             letter-spacing: 1.4px;
         } 
+        
     }
     .visible {
         left: 16px;
         width: 288px;
-        .menu__btn { 
-            right: -76%;
+        .menu__btn {
+            right: 14px;
         }
     }
 }

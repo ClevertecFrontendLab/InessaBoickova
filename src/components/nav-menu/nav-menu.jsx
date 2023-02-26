@@ -1,45 +1,67 @@
-import { useEffect, useRef, useCallback } from 'react';
+import {useEffect, useRef } from 'react';
 import {useDispatch,useSelector } from 'react-redux';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink , useLocation } from 'react-router-dom';
 import classNames from 'classnames';
+import { createSelector } from 'reselect';
 
-import {hideListMenu,openNavMenu,showListMenu} from '../../actions'
+import {hideListMenu,openNavMenu,setActiveFilter,showListMenu} from '../../actions/actions'
 import close_vector from '../../resources/icon/close_vector.svg';
 import raise_vector from '../../resources/icon/raise_vector.svg';
 import { useService } from '../../services/services';
 
 export const NavMenu = () => {
-    const navMenuOpen = useSelector(state => state.navMenuOpen);
-    const showListBook = useSelector(state => state.showListBook);
-    const listOfGenres = useSelector(state => state.listOfGenres);
-    const ref = useRef();
     const location = useLocation();
-   
     const dispatch = useDispatch();
+    const navMenuOpen = useSelector(state => state.listMenu.navMenuOpen);
+    const showListBook = useSelector(state => state.listMenu.showListBook);
+    const loading = useSelector(state => state.book.loading);
+    const error = useSelector(state => state.book.error);
+    const ref = useRef();
     const {getListOfGenres} = useService();
- 
-    
+
+    const listSelector = createSelector(
+        (state) => state.book.booksList,
+        (state) => state.book.listOfGenres,
+        (booksList , listOfGenres) => {
+            const arr = booksList.map((item) => item.categories)
+            // eslint-disable-next-line no-return-assign, no-param-reassign, no-sequences
+            const list = arr.flat(3).reduce((cnt, cur) => (cnt[cur] = cnt[cur] + 1 || 1, cnt), {});
+            // eslint-disable-next-line padding-line-between-statements, array-callback-return
+            const result = listOfGenres.map((i)=> ({
+                    ...i,
+                    number: list[i.name],
+                }))
+
+            return result; 
+        }
+      )
+
+    const ListOfGenres = useSelector(listSelector);
+
     useEffect (()=> {
         getListOfGenres()
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
+    
 
     useEffect (()=> {
-        if ( location.pathname !== '/books' &&  location.pathname !== '/books/all'){
+        if ( location.pathname !== '/books' && window.innerWidth < 769 && !error ){
             dispatch(hideListMenu());
+            dispatch(openNavMenu());
         }
-    },[dispatch, location])
-    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[dispatch, loading, location])
+
     useEffect(()=> {
         
         const checkIfClickedOutside = (e) => {
             e.preventDefault();
 
-            if (navMenuOpen && !ref.current.contains(e.target) && !e.target.closest('.header__hamburger')) {
-                dispatch(openNavMenu())
+            if (navMenuOpen && !ref.current.contains(e.target) && !e.target.closest('.header__hamburger') && !(window.innerWidth < 769)) {
+                dispatch(openNavMenu());
             }
-            if (e.target.tagName === 'P') {
-                dispatch(openNavMenu())
+            if ((e.target.tagName === 'P') && (window.innerWidth < 769)) {
+                dispatch(openNavMenu());
             } 
         };
        
@@ -48,24 +70,37 @@ export const NavMenu = () => {
         return () => {
             document.removeEventListener('click' , checkIfClickedOutside);
         }
-   
+
     },[dispatch, navMenuOpen]);
 
     const testShowcase = (window.innerWidth < 769) ? 'burger-showcase' : 'navigation-showcase';
     const testTerms =(window.innerWidth < 769) ? 'burger-terms': 'navigation-terms';
     const testContract= (window.innerWidth < 769) ? 'burger-contract' : 'navigation-contract' ;
     const testAllBooks = (window.innerWidth < 769) ? 'burger-books' : 'navigation-books' ;
-    
-
-    const list = listOfGenres.map((i,index)=> (
-            <li key={i.id}>
-                <NavLink  className={({isActive}) => isActive ? 'active__link': 'menu__link '} 
-                to={`/books/${i.path}`}>
-                    <p> {i.name} <span>{index}</span> </p>  
+   
+    const list = ListOfGenres.map((i)=>{
+        const {name,path,number} = i;
+        
+        return  (
+            <li key={name}>
+                <NavLink  className={({isActive}) => isActive ? 'active__link': 'menu__link '} onClick={()=> dispatch(setActiveFilter(name))}
+                to={`/books/${path}`}>
+                    <p> <span className='menu__name'
+                    data-test-id = {((window.innerWidth < 769)) 
+                                        ?`burger-${path}`
+                                        : `navigation-${path}`}>{name}
+                        </span> 
+                        <span  data-test-id ={((window.innerWidth < 769)) 
+                                ? `burger-book-count-for-${path}` 
+                                : `navigation-book-count-for-${path}`}>
+                                {number ? number : 0}
+                        </span>
+                    </p>  
                 </NavLink>
             </li>
-        ))        
-
+        )
+    })
+   
     return (
         <section className={classNames('menu', {visible : navMenuOpen})} ref={ref} data-test-id='burger-navigation' >
             <ul className='menu__list' > 
@@ -73,18 +108,19 @@ export const NavMenu = () => {
                 <div className='menu__list-wrap'>
                     <NavLink to='/books' className={({isActive}) => isActive ? 'active_link' : 'menu__link-main'}>
                         Витрина книг
-                        <button  data-test-id= {testShowcase} type='button' onClick={()=> dispatch(showListMenu())} className = 'menu__btn' ><img  src={showListBook ? close_vector :  raise_vector} alt="vector" 
+                    </NavLink> 
+                    <button  data-test-id= {testShowcase} type='button' onClick={()=> dispatch(showListMenu())} className = 'menu__btn' >
+                        <img  src={showListBook ? close_vector :  raise_vector} alt="vector" 
                             className='menu__vector'/>
                     </button>
-                    </NavLink> 
                 </div>
 
                 <div className={classNames('menu_list_hide', {menu_list_hide_visible : showListBook})}>
                 
                     {list.length > 3 ? [<li key= {list.length + 1}>
-                        <NavLink data-test-id={testAllBooks} className={({isActive}) => isActive ? 'active__link': 'menu__link '} 
-                            to="/books/all">
-                            <p> Все книги</p>
+                        <NavLink  className={({isActive}) => isActive ? 'active__link': 'menu__link '} 
+                            to="/books/all" onClick={()=> dispatch(setActiveFilter('Все книги'))}>
+                            <p> <span data-test-id={testAllBooks} className='menu__name'>{'Все книги'.trim()}</span></p>
                         </NavLink>
                     </li>, ...list]
                       : null}
@@ -106,7 +142,7 @@ export const NavMenu = () => {
 
                <div className="menu__hide">
                     <li >
-                        <NavLink to='/profile'
+                        <NavLink to='/profile' 
                             className={({isActive}) => isActive ? 'menu__link-main': 'menu__link-main' }>
                              Профиль
                         </NavLink>

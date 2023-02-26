@@ -11,10 +11,13 @@
     &__link {
         p {
             margin: 16px 0 0 22px;
-            @include fz16();
             span {
                 @include fz14();
-                margin-left: 3px;
+               
+            }
+            .menu__name {
+                @include fz16();
+                margin-right: 6px;
             }
         }
         &-mt {
@@ -26,9 +29,14 @@
             @include fz16(null,null,28px);
             font-weight: 700;
             margin: 16px 0 0 22px;
-            background-image: $gradient-color;
-            color: transparent;
-            background-clip: text;
+            .menu__name {
+                margin-right: 6px;
+            }
+            span {
+                background-image: $gradient-color;
+                color: transparent;
+                background-clip: text;
+            }
         }   
     }
     &__link-main { 

@@ -1,11 +1,13 @@
+/* eslint-disable jsx-a11y/no-autofocus */
 import { useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch , useSelector} from 'react-redux';
 import classNames from 'classnames';
 
-import {setColumn , setRaiseFilter,setRow } from '../../actions/actions'
+import {setColumn , setRaiseFilter,setRow , setValueInput} from '../../actions/actions'
 import  close_input  from '../../resources/icon/close_input.svg';
 
 export const MainFilter = () => {
+    const valueInput = useSelector((state)=> state.filters.valueInput);
     const [oneBtn,setOneBtn] = useState('filter__btn-button active');
     const [twoBtn,setTwoBtn] = useState('filter__btn-button');
     const [sortAscending, setSortAscending] = useState(true);
@@ -43,6 +45,9 @@ export const MainFilter = () => {
         setInputShow(false);
     }
 
+    const dataInputMobile = (window.innerWidth < 769) ? 'input-search' : null ;
+    const dataInput = (window.innerWidth < 769) ?  null : 'input-search';
+
     return (
         <div className="filter">
             <div className="filter__wrapper-input">
@@ -61,8 +66,15 @@ export const MainFilter = () => {
                                 </button>}
 
                                 <label  htmlFor="search">
-                                    <input data-test-id='input-search'  name='search' placeholder='Поиск книги или автора…' type="text"
-                                    className={classNames('filter__input-search-mobile', {filter__search_visible : inputShow })}/>
+                                    
+                                    <input  name='search' 
+                                            placeholder='Поиск книги или автора…' 
+                                            data-test-id= {dataInputMobile}
+                                            type="text"
+                                            value = {valueInput}
+                                            className={classNames('filter__input-search-mobile',
+                                                     {filter__search_visible : inputShow })}
+                                            onChange = {(e)=> dispatch(setValueInput(e.target.value))}/>
 
                                 { inputShow
                                     ? <button data-test-id='button-search-close'  type='button' className='filter__input-search-button-close' onClick={()=> hideInput()}>
@@ -72,8 +84,11 @@ export const MainFilter = () => {
                         </label>
 
                         <label htmlFor="search" className='filter__input-search'>
-                            <input  name='search' placeholder='Поиск книги или автора…' type="text"
-                            className={classNames('filter__input-search-input', {filter__search_visible : inputShow })}/>
+                            <input data-test-id={dataInput} name='search' placeholder='Поиск книги или автора…'
+                             type="text" value = {valueInput}
+                            className={classNames('filter__input-search-input',
+                                     {filter__search_visible : inputShow })}
+                                     onChange = {(e)=> dispatch(setValueInput(e.target.value))}/>
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className='filter__input-search-input-icon'>
                                 <path fillRule="evenodd" clipRule="evenodd" d="M7.3335 2.66671C4.75617 2.66671 2.66683 4.75605 2.66683 7.33337C2.66683 9.9107 4.75617 12 7.3335 12C9.91083 12 12.0002 9.9107 12.0002 7.33337C12.0002 4.75605 9.91083 2.66671 7.3335 2.66671ZM1.3335 7.33337C1.3335 4.01967 4.01979 1.33337 7.3335 1.33337C10.6472 1.33337 13.3335 4.01967 13.3335 7.33337C13.3335 10.6471 10.6472 13.3334 7.3335 13.3334C4.01979 13.3334 1.3335 10.6471 1.3335 7.33337Z" fill="#A7A7A7"/>
                                 <path fillRule="evenodd" clipRule="evenodd" d="M10.6284 10.6286C10.8887 10.3683 11.3108 10.3683 11.5712 10.6286L14.4712 13.5286C14.7315 13.789 14.7315 14.2111 14.4712 14.4714C14.2108 14.7318 13.7887 14.7318 13.5284 14.4714L10.6284 11.5714C10.368 11.3111 10.368 10.889 10.6284 10.6286Z" fill="#A7A7A7"/>
@@ -83,10 +98,10 @@ export const MainFilter = () => {
                         {inputShow 
                             ? null 
                             : (sortAscending)
-                                ?    <button type='button' className='filter__input-rating filter__input-rating-ascending' onClick={()=> setFilterAscending()}>
+                                ?    <button data-test-id='sort-rating-button' type='button' className='filter__input-rating filter__input-rating-ascending' onClick={()=> setFilterAscending()}>
                                          По рейтингу 
                                     </button>                
-                                :  <button type='button' className='filter__input-rating filter__input-rating-descending' onClick={()=> setFilterDescending()}>
+                                :  <button  data-test-id='sort-rating-button' type='button' className='filter__input-rating filter__input-rating-descending' onClick={()=> setFilterDescending()}>
                                         По рейтингу
                                     </button>}
                 </div>

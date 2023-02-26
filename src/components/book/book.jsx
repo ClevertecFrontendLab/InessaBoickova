@@ -59,7 +59,7 @@ export const Book = () => {
                        {images ?  <SwiperSlider images={images}/> : null}
                      </div>
                      <div className="book__main-block-descr">
-                         <h2>{title}</h2>
+                         <h2 data-test-id='book-title'>{title}</h2>
                          <h3>{authors}</h3>
                          <button className={classBtn} type='button'>{btnTitle}</button>
                          <div className="book__main-block-descr-about">

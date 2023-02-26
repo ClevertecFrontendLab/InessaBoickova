@@ -81,14 +81,17 @@
             width: 174px;
         }
         &__title {
-            @include fz14(0.1px,$main-text-color,18px);
+            margin-top: 20px;
             height: 54px;
             display: flex;
             align-items: center;
-            margin-top: 20px;
-            font-weight: 600;
+            h3 {
+                @include fz14(0.1px,$main-text-color,18px);
+                font-weight: 600;
+            }
         }
         &__subtitle {
+            margin-top: 5px;
             display: flex;
             align-items: center;
             height: 36px;
@@ -135,8 +138,6 @@
         color: #A7A7A7;
         h2 {
             @include fz14(0.1px,null,18px);
-            font-family: 'Montserrat';
-            font-style: normal;
         }
     }
 }

@@ -58,7 +58,9 @@
             &__title {
                 height: 49px;
                 margin-top: 28px;
-                font-size: 12px;
+                h3 {
+                    font-size: 12px;
+                }
             }
             &__subtitle {
                 margin: 0px 0 12px 0;
@@ -125,7 +127,9 @@
             &__title {
                 height: 54px;
                 margin-top: 18px;
-                font-size: 14px;
+                h3 {
+                    font-size: 14px;
+                }
             }
             &__subtitle {
                 margin: 0;

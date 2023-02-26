@@ -1,8 +1,9 @@
 const initialState = {
-    activeFilter: 'Все',
+    activeFilter: 'Все книги',
     filteredBookList: [],
     numOfListOfGenres: [],
-    raiseFilter : false
+    raiseFilter : false,
+    valueInput : ''
 }
   
 export const filters = (state = initialState, action) => {
@@ -17,6 +18,11 @@ export const filters = (state = initialState, action) => {
         return {
             ...state,
             raiseFilter : !state.raiseFilter,
+        };
+        case 'SET_VALUE_INPUT': 
+        return {
+            ...state,
+            valueInput : action.value ,
         };
         default : 
             return state;

@@ -10,3 +10,4 @@ export const setLoading = (value)=> ({type:'SET_LOADING' , value});
 export const setError = (value)=> ({type:'SET_ERROR' , value});
 export const setActiveFilter = (value)=> ({type:'SET_ACTIVE_FILTER' , value});
 export const setRaiseFilter = (value)=> ({type:'SET_RAISE_FILTER' , value});
+export const setValueInput = (value)=> ({type:'SET_VALUE_INPUT' , value});

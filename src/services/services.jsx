@@ -1,10 +1,11 @@
 import { useCallback } from 'react';
-import {useDispatch } from 'react-redux';
+import {useDispatch,useSelector } from 'react-redux';
 import axios from 'axios'; 
 
-import { setBook,setBooksList,setError,setListOfGenres,setLoading} from '../actions/actions';
+import { openNavMenu,setBook,setBooksList,setError,setListOfGenres,setLoading } from '../actions/actions';
 
 export const useService = () => {
+    const navMenuOpen = useSelector(state => state.listMenu.navMenuOpen);
     const link = 'https://strapi.cleverland.by/';
     const dispatch = useDispatch();
 
@@ -14,12 +15,16 @@ export const useService = () => {
             dispatch(setLoading(true));
             axios.get(`${link}${ref}`)
             .then((response) =>  {
+                  if(navMenuOpen){
+                    dispatch(openNavMenu())
+                }
                 dispatch(action(response.data))
             })
             .catch(()=> {
                 dispatch(setError(true));
             })
             .finally( () => {
+                
                 dispatch(setLoading(false));
             });
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -27,7 +32,7 @@ export const useService = () => {
     );
 
     const getBooksList = () => {
-       onRequest(setBooksList,'api/books')
+       onRequest(setBooksList,'api/books');
     }
 
     const getBook = (id) => {

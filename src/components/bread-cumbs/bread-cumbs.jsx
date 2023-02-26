@@ -21,13 +21,18 @@ export const BreadCrumbs = () => {
         <div className='bread-cumbs'>
             <div className="container">
                 <div className="bread-cumbs__wrapper">
-                    <div className='bread-cumbs__text'> <button type='button' className='bread-cumbs__button' onClick={ ()=> goBack()}> {activeFilter}</button>
+                    <div className='bread-cumbs__text'> 
+                    <button data-test-id='breadcrumbs-link'type='button' className='bread-cumbs__button' onClick={()=> goBack()}> 
+                        {activeFilter.trim()}
+                    </button>
                         <span>
                             <svg width="11" height="16" viewBox="0 0 11 20" fill="none">
                                 <path d="M1 19L10 1" stroke="#BFC4C9" strokeWidth="2" strokeLinecap="round"/>
                             </svg>
                         </span>
+                        <span data-test-id='book-name'> 
                         {(error)?  ' ' :  book.title}
+                        </span>
                     </div>
                 </div>
             </div>

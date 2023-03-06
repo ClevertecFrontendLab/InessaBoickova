@@ -1,0 +1,24 @@
+@use '../../base/mixins' as *;
+
+.registration-notify {
+    margin: 0 auto;
+    padding: 42px 95px 48px 95px;
+    background: #FFFFFF;
+    border-radius: 16px;
+    width: 600px;
+    max-height: 314px;
+    &__title {
+        @include fz24(0.1px ,$main-text-color,30px);
+        text-align: center;
+    }
+    &__descr {
+        @include fz16();
+        margin: 32px 0;
+        text-align: center;
+    }
+    &__button {
+        @include button(410px,52px);
+        font-size: 12px;
+        line-height: 18px;
+    }
+}

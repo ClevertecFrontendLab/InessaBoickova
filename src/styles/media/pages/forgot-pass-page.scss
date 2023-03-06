@@ -1,0 +1,10 @@
+@media(max-width:580px) {
+    .forgot-pass-page{
+        grid-template-rows: 10% 1fr;
+        &__title {
+            text-align: center;
+            font-size: 18px;
+            line-height: 28px;
+        }
+    }
+}

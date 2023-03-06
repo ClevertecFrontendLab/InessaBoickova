@@ -7,7 +7,7 @@ import { createSelector } from 'reselect';
 import {hideListMenu,openNavMenu,setActiveFilter,showListMenu} from '../../actions/actions'
 import close_vector from '../../resources/icon/close_vector.svg';
 import raise_vector from '../../resources/icon/raise_vector.svg';
-import { useService } from '../../services/services';
+import { useBooksServices } from '../../services/books';
 
 export const NavMenu = () => {
     const location = useLocation();
@@ -17,7 +17,7 @@ export const NavMenu = () => {
     const loading = useSelector(state => state.book.loading);
     const error = useSelector(state => state.book.error);
     const ref = useRef();
-    const {getListOfGenres} = useService();
+    const {getListOfGenres} = useBooksServices();
 
     const listSelector = createSelector(
         (state) => state.book.booksList,

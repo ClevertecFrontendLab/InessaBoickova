@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import { openNavMenu,setBook,setBooksList,setError,setListOfGenres,setLoading } from '../actions/actions';
 
-export const useService = () => {
+export const useBooksServices = () => {
     const navMenuOpen = useSelector(state => state.listMenu.navMenuOpen);
     const link = 'https://strapi.cleverland.by/';
     const dispatch = useDispatch();

@@ -31,29 +31,34 @@ export const StepOne = () => {
     const data = watch();
 
     const username = register('username', { required: true,
-                                             validate:{
-                                                onlyString: (value) => /(?=.*?[A-Za-z])/.test(value) || 'латинский алфавит',
-                                                onlyNumber: (value) => /(?=.*?[0-9])/.test(value) || 'и цифры',
-                                                
-                                             }})
+                                validate:{
+                                    onlyString: (value) => /(?=.*?[A-Za-z])/.test(value) || 'латинский алфавит',
+                                    onlyNumber: (value) => /(?=.*?[0-9])/.test(value) || 'и цифры',
+                                    }
+                                }
+                            )
 
     const password = register('password', { required: true, 
-                                                validate: {
-                                                        onLength  : (value) => /(?=^.{8,}$)/.test(value) || 'не менее 8 символов,',
-                                                        onlyUppercase: (value) => /(?=.*?[A-Z])/.test(value) || 'с заглавной буквой',
-                                                        onlyNumber: (value) => /(?=.*?[0-9])/.test(value) || 'и цифрой',
-                                                    }})
-
-
+                                validate: {
+                                    onLength  : (value) => /(?=^.{8,}$)/.test(value) || 'не менее 8 символов,',
+                                    onlyUppercase: (value) => /(?=.*?[A-Z])/.test(value) || 'с заглавной буквой',
+                                    onlyNumber: (value) => /(?=.*?[0-9])/.test(value) || 'и цифрой',
+                                    }
+                                }
+                            )
+  
     const onSubmit = (e) => {
         e.preventDefault();
-        if(!errors.password && !errors.username){
+        if(!errors.password && !errors.username && data.password && data.username){
             dispatch(setRegistrationStep(2));
             dispatch(setRegistrationData(data))
         }
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+        (!data.password) && setInpurErrorTwo(true);
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+        (!data.username) && setInpurErrorOne(true);
     }
-  
-
+ 
     const onBlurUserName = (e) => {
         // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         (errors.username || e.target.value === '' )
@@ -65,7 +70,6 @@ export const StepOne = () => {
     }
 
     const onBlurPassword = (e) => {
-        
         // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         (errors.username || e.target.value === '' )
                             ? setInpurErrorTwo(true)
@@ -74,7 +78,6 @@ export const StepOne = () => {
         (e.target.value !== '') ? setActiveInputTwo('registration__form-wrapper-active')
                                 : setActiveInputTwo('registration__form-wrapper')
     }
-
 
     const setErrorText= (string,type) => {
         let str = string;
@@ -90,7 +93,7 @@ export const StepOne = () => {
         return {str,arr};
     }
 
-    const onChangeUserName= (()=> setErrorText('Используйте для логина латинский алфавит и цифры',errors.username))
+    const onChangeUserName= (()=> setErrorText('Используйте для логина латинский алфавит и цифры', errors.username))
 
     const onChangePassword = (()=> setErrorText('Пароль не менее 8 символов, с заглавной буквой и цифрой', errors.password))
 
@@ -126,7 +129,6 @@ export const StepOne = () => {
                                 username.onChange(e)
                                 onChangeUserName(e)
                         }}/>
-                
                 
                 </div>
                         
@@ -180,8 +182,11 @@ export const StepOne = () => {
                         </p>
                     }
                
-              
-                <input className='registration__form-submit' type="submit" value="следующий шаг" />
+                <input 
+                    className={(errors.password || errors.username)? 'registration__form-submit-block' : 'registration__form-submit'} 
+                    type="submit" value="следующий шаг"
+                    disabled= {(inpurErrorTwo || inpurErrorOne) ? true : false }
+                    />
             </form>
             <div className="registration__transition">
                 <h4 className="registration__transition-title">Есть учётная запись?</h4>

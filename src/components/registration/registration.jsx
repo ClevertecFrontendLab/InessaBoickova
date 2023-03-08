@@ -1,19 +1,26 @@
 import { Fragment } from 'react'
 import { useSelector } from 'react-redux'
 
+import { Spinner } from '../spinner/spinner'
+
+import { RegistrationNotify } from './registration-notify'
 import { StepOne } from './step-one'
 import { StepThree } from './step-three'
 import { StepTwo } from './step-two'
 
 export const Registration = () => {
     const step = useSelector(state => state.registration.registrationStep);
+    const registrationSuccess = useSelector(state => state.registration.registrationSuccess);
+    const loading = useSelector(state => state.book.loading);
   
     const stepRegistration = ((step === 1) && <StepOne/>) || ((step === 2) && <StepTwo/>) || ((step === 3) && <StepThree/>);
 
     return (
-        // eslint-disable-next-line react/jsx-no-useless-fragment
+      
         <Fragment>
-           {stepRegistration}
+            {loading && <Spinner/>}
+            {(registrationSuccess && !loading)  && <RegistrationNotify/>}
+            {(!loading && !registrationSuccess) &&  stepRegistration}
         </Fragment>
     )
 }

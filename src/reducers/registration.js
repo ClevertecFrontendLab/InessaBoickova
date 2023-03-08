@@ -1,6 +1,8 @@
 const initialState = {
     registrationStep: 1,
-    registrationData: {}
+    registrationData: {},
+    registrationResult: '',
+    registrationSuccess: false
 }
   
 export const registration = (state = initialState, action) => {
@@ -19,6 +21,16 @@ export const registration = (state = initialState, action) => {
                     ...action.value,
                 }
             };
+        case 'SET_REGISTRATOIN_RESULT': 
+            return {
+                ...state,
+                registrationResult: action.value,
+            };
+        case 'SET_REGISTRATOIN_SUCCESS':
+            return {
+                ...state,
+                registrationSuccess: action.value
+            }
         default : 
             return state;
     }

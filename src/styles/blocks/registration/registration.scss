@@ -3,8 +3,9 @@
 .registration {
     margin: 0 auto;
     padding: 48px 56px;
-    width: 528px;
-    max-height: 492px;
+    min-width: 528px;    
+    // max-height: 456px;
+    height: min-content;
     background: #FFFFFF;
     border-radius: 16px;
     &__title {
@@ -55,6 +56,12 @@
         &-submit {
             @include button(100%,52px,30px,16px);
             margin-top: 32px;
+            &-block {
+                @include button(100%,52px,30px,16px);
+                margin-top: 32px;
+                background: #EBEBEB;
+                
+            }
         }
         &-help {
             margin-top: 2px;
@@ -72,6 +79,7 @@
             height: 24px;
             top: 16px;
             right: 16px;
+            background-color: #F9F9FA;
         }
         &-successful_сheck {
             position: absolute;

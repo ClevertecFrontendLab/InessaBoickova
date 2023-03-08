@@ -17,8 +17,10 @@
         text-align: center;
     }
     &__button {
+        display: block;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         @include button(410px,52px);
-        font-size: 12px;
-        line-height: 18px;
     }
 }

@@ -1,4 +1,4 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate,Outlet } from 'react-router-dom';
 
-export const PrivateRoute = ({children}) => (localStorage.getItem('token')? children : <Navigate to="/auth"/>)
+export const PrivateRoute = () => (localStorage.getItem('token')? <Outlet/> : <Navigate to="/auth"/>)
 

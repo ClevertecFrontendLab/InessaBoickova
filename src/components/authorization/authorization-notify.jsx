@@ -1,14 +1,21 @@
+import { useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
+
+import { setAuthorizationResult } from '../../actions/actions'
+
 export const AuthorizationNotify = () => {
-    console.log('sd');
+    const dispatch = useDispatch()
 
     return (
-        <div className="authorization-notify">
-            <h2 className="authorization-notify__title"> Вход не выполнен </h2>
-            <p className="authorization-notify__descr"> Что-то пошло не так. Попробуйте ещё раз </p>
+        <div className="identification-notify">
+            <h2 className="identification-notify__title"> Вход не выполнен </h2>
+            <p className="identification-notify__descr"> Что-то пошло не так. Попробуйте ещё раз </p>
 
-            <button className="authorization-notify__button" type="button">повторить</button>
+            <Link to='/auth' className="identification-notify__button" 
+                onClick={()=> dispatch(setAuthorizationResult(''))}>
+                повторить
+            </Link>
 
         </div>
     )
-
 }

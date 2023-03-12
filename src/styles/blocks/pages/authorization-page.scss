@@ -5,11 +5,11 @@
     height: 100vh;
     background: $gradient-color;
     display: grid;
-    grid-template-rows: 25% 1fr;
+    grid-template-rows: 25% 1fr 25%;
+    align-items: center;
+    justify-content: center;
     &__title {
         @include fz32(0.1px,#FFFFFF,40px);
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        text-align: center;
     }
 }

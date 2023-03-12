@@ -20,24 +20,20 @@ root.render(
      <HashRouter>
        <Provider store={store}>
           <Routes>
-              <Route path='/auth' element={<AuthorizationPage/>} />
               <Route path='/' element={<Navigate to="/auth"/>} />
+              <Route path='/auth' element={<AuthorizationPage/>} />
               <Route path='/registration' element={<RegistrationPage/>} />
               <Route path='/forgot-pass' element={<ForgotPassPage/>} />
-              <Route path='/books' element={
-                <PrivateRoute>
-                    <Route element= {<MainPage/>}>
-                        <Route path='/books/:category' element={<MainPage/>}/>
-                    </Route>
-                    <Route path='/terms' element={<TermsPage text= "Правила пользования"/>}/>
-                    <Route path='/contract'  element={<TermsPage text= "Договор оферты"/>}/>
-                    <Route path='/profile' element={<MainPage/>}/>
-                    <Route path='/exit'  element={<MainPage/>}/>
-                    <Route path='/books/:category/:bookId' element={<BookPage />}/>
-
-                </PrivateRoute>
-              }/>
-                
+              <Route element={<PrivateRoute/>}>
+                  <Route path='/books/all' element={<MainPage/>}/>
+                  <Route path='/terms' element={<TermsPage/>}/>
+                  <Route path='/books/:category' element={<MainPage/>}/>
+                  <Route path='/terms' element={<TermsPage text= "Правила пользования"/>}/>
+                  <Route path='/contract'  element={<TermsPage text= "Договор оферты"/>}/>
+                  <Route path='/profile' element={<MainPage/>}/>
+                  <Route path='/exit'  element={<MainPage/>}/>
+                  <Route path='/books/:category/:bookId' element={<BookPage />}/>
+              </Route>     
           </Routes>
         </Provider>
     </HashRouter>  

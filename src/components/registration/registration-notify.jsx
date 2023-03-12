@@ -7,10 +7,10 @@ import { useIdentificationServices } from '../../services/identification';
 
 export const RegistrationNotify = () => {
     const dispatch = useDispatch();
-    const status = useSelector(state => state.registration.registrationResult);
-    const registrationData = useSelector(state=> state.registration.registrationData);
+    const status = useSelector(state => state.identification.registrationResult);
+    const registrationData = useSelector(state=> state.identification.registrationData);
     const {registrationUser} = useIdentificationServices()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  
     const data = {
         success: {
            title: 'Регистрация успешна',
@@ -43,20 +43,21 @@ export const RegistrationNotify = () => {
         }
     }
 
-    // eslint-disable-next-line consistent-return
     const elem = () => {
        if(status !== ''){
         const {title,descr,textBtn,link} = data[status];
 
         return (
-            <div className="registration-notify">
-                <h2 className="registration-notify__title"> {title}</h2>
-                <p className="registration-notify__descr"> {descr} </p>
-                <Link to={link} className="registration-notify__button" onClick={()=> onClean()}> {textBtn} </Link>
+            <div className="identification-notify">
+                <h2 className="identification-notify__title"> {title}</h2>
+                <p className="identification-notify__descr"> {descr} </p>
+                <Link to={link} className="identification-notify__button" onClick={()=> onClean()}> {textBtn} </Link>
 
             </div>
             )
         }
+
+        return null;
     }
     
     return (
@@ -64,5 +65,4 @@ export const RegistrationNotify = () => {
             {elem()}
         </Fragment>
     )
-
 }

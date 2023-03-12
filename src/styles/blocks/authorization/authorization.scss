@@ -31,6 +31,16 @@
                 }
             } 
         }
+        &-button_show {
+            cursor: pointer;
+            position: absolute;
+            border: none;
+            width: 24px;
+            height: 24px;
+            top: 16px;
+            right: 16px;
+            background-color: #F9F9FA;
+        }
         &-link {
             margin-top: 20px;
             @include fz12();
@@ -55,6 +65,13 @@
         &-submit {
             @include button(100%,52px,30px,16px);
             margin-top: 32px;
+            text-align: center;
+            &-block {
+                @include button(100%,52px,30px,16px);
+                margin-top: 32px;
+                background: #EBEBEB;
+                text-align: center;
+            }
         }
     }
     &__transition {

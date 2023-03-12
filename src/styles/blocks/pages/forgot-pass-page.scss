@@ -3,11 +3,11 @@
     height: 100vh;
     background: linear-gradient(231.58deg, #F83600 -53.35%, #F9D423 297.76%);
     display: grid;
-    grid-template-rows: 25% 1fr;
+    grid-template-rows: 25% 1fr 25%;
+    align-items: center;
+    justify-content: center;
     &__title {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        text-align: center;
         font-weight: 700;
         font-size: 32px;
         line-height: 40px;

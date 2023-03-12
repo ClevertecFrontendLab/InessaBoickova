@@ -10,7 +10,7 @@ import { useIdentificationServices } from '../../services/identification';
 
 export const StepThree = () => {
     const dispatch = useDispatch()
-    const registrationData = useSelector(state=> state.registration.registrationData)
+    const registrationData = useSelector(state=> state.identification.registrationData)
     const {registrationUser} = useIdentificationServices()
     const [activeInputOne , setActiveInputOne] = useState ('registration__form-wrapper');
     const [activeInputTwo , setActiveInputTwo] = useState ('registration__form-wrapper');
@@ -48,7 +48,6 @@ export const StepThree = () => {
     const OnBlurInputPhone = (e) => {
         // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         (e.target.value.length < 1 ) && (setActiveInputOne('registration__form-wrapper'), setInpurErrorOne(true))
-        
     }
 
     const OnBlurInputEmail = (e) => {
@@ -66,7 +65,7 @@ export const StepThree = () => {
                 <form className='registration__form' onSubmit={(e) => handleSubmit(onSubmit(e))} noValidate={true}>
     
                     <div className={activeInputOne} style={{borderBottom:`1px solid ${borderOneColor}`}} >
-                        <label className='registration__form-label' htmlFor="d"> Номер телефона </label>
+                        <label className='registration__form-label' htmlFor="phone"> Номер телефона </label>
                             <Controller 
                                 className='registration__form-input' 
                                 {...register('phone')}

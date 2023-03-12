@@ -10,11 +10,12 @@ import eye_open from '../../resources/icon/eye_open.svg'
 import eye_closed from '../../resources/icon/eye-closed.svg'
 import successful_сheck from '../../resources/icon/successful-сheck.svg'
 
+// eslint-disable-next-line complexity
 export const StepOne = () => {
     const dispatch = useDispatch()
    
-    const [activeInputOne , setActiveInputOne] = useState ('registration__form-wrapper');
-    const [activeInputTwo , setActiveInputTwo] = useState ('registration__form-wrapper');
+    const [activeInputOne , setActiveInputOne] = useState ('identification__form-wrapper');
+    const [activeInputTwo , setActiveInputTwo] = useState ('identification__form-wrapper');
 
     const [inpurErrorOne,setInpurErrorOne] = useState(false);
     const [inpurErrorTwo,setInpurErrorTwo] = useState(false);
@@ -31,21 +32,21 @@ export const StepOne = () => {
     const data = watch();
 
     const username = register('username', { required: true,
-                                validate:{
-                                    onlyString: (value) => /(?=.*?[A-Za-z])/.test(value) || 'латинский алфавит',
-                                    onlyNumber: (value) => /(?=.*?[0-9])/.test(value) || 'и цифры',
-                                    }
-                                }
-                            )
+                    validate:{
+                        onlyString: (value) => /(?=.*?[A-Za-z])/.test(value) || 'латинский алфавит',
+                        onlyNumber: (value) => /(?=.*?[0-9])/.test(value) || 'и цифры',
+                        }
+                    }
+                )
 
     const password = register('password', { required: true, 
-                                validate: {
-                                    onLength  : (value) => /(?=^.{8,}$)/.test(value) || 'не менее 8 символов,',
-                                    onlyUppercase: (value) => /(?=.*?[A-Z])/.test(value) || 'с заглавной буквой',
-                                    onlyNumber: (value) => /(?=.*?[0-9])/.test(value) || 'и цифрой',
-                                    }
-                                }
-                            )
+                    validate: {
+                        onLength  : (value) => /(?=^.{8,}$)/.test(value) || 'не менее 8 символов,',
+                        onlyUppercase: (value) => /(?=.*?[A-Z])/.test(value) || 'с заглавной буквой',
+                        onlyNumber: (value) => /(?=.*?[0-9])/.test(value) || 'и цифрой',
+                        }
+                    }
+                )
   
     const onSubmit = (e) => {
         e.preventDefault();
@@ -65,18 +66,18 @@ export const StepOne = () => {
                             ? setInpurErrorOne(true)
                             : setInpurErrorOne(false);
         // eslint-disable-next-line @typescript-eslint/no-unused-expressions, no-negated-condition
-        (e.target.value !== '') ? setActiveInputOne('registration__form-wrapper-active')
-                                : setActiveInputOne('registration__form-wrapper')
+        (e.target.value !== '') ? setActiveInputOne('identification__form-wrapper-active')
+                                : setActiveInputOne('identification__form-wrapper-active')
     }
 
     const onBlurPassword = (e) => {
         // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-        (errors.username || e.target.value === '' )
+        (inpurErrorTwo || e.target.value === '' )
                             ? setInpurErrorTwo(true)
                             : setInpurErrorTwo(false);
         // eslint-disable-next-line @typescript-eslint/no-unused-expressions, no-negated-condition
-        (e.target.value !== '') ? setActiveInputTwo('registration__form-wrapper-active')
-                                : setActiveInputTwo('registration__form-wrapper')
+        (e.target.value !== '') ? setActiveInputTwo('identification__form-wrapper-active')
+                                : setActiveInputTwo('identification__form-wrapper')
     }
 
     const setErrorText= (string,type) => {
@@ -86,8 +87,10 @@ export const StepOne = () => {
 
         // eslint-disable-next-line no-restricted-syntax, guard-for-in, no-unreachable-loop
         for ( const [,value] of Object.entries(types)) {
-            arr.push(value)
-            str = str.replace(value, 'errors');
+            if(value !== true){
+                arr.push(value)
+                str = str.replace(value, 'errors');
+            }
         }
 
         return {str,arr};
@@ -95,7 +98,7 @@ export const StepOne = () => {
 
     const onChangeUserName= (()=> setErrorText('Используйте для логина латинский алфавит и цифры', errors.username))
 
-    const onChangePassword = (()=> setErrorText('Пароль не менее 8 символов, с заглавной буквой и цифрой', errors.password))
+    const onChangePassword = (()=> setErrorText('Пароль,не менее 8 символов,, с заглавной буквой, и цифрой', errors.password))
 
     const userNameErorr = onChangeUserName();
     const passwordErorr = onChangePassword();
@@ -107,23 +110,27 @@ export const StepOne = () => {
     let countPassword = 0;
 
     return  (
-        <div className="registration">
-            <h3 className='registration__title'> Регистрация </h3>
-            <h4 className="registration__subtitle"> 1 шаг из 3 </h4>
-            
-            <form className='registration__form' 
+        <div className="identification">
+            <h3 className='identification__title'> Регистрация </h3>
+            <h4 className="identification__subtitle"> 1 шаг из 3 </h4>
+             
+            <form className='identification__form '  data-test-id='register-form'
                 onSubmit={(e) => handleSubmit(onSubmit(e))}>
     
                 <div className={activeInputOne} style={{borderBottom:`1px solid ${borderOneColor}`}} >
-                    <label className='registration__form-label'
+                    <label className='identification__form-label'
                             htmlFor="username">
                          Придумайте логин для входа 
                     </label>
+
                     <input type="text" 
-                        {...username}
-                            className='registration__form-input' 
+                            {...username}
+                            id='username'
+                            // eslint-disable-next-line jsx-a11y/no-autofocus
+                            autoFocus={true}
+                            className='identification__form-input' 
                             onClick={() => setInpurErrorOne(false)}
-                            onFocus={()=> setActiveInputOne('registration__form-wrapper-active')}
+                            onFocus={()=> setActiveInputOne('identification__form-wrapper-active')}
                             onBlur={(e)=> onBlurUserName(e)}
                             onChange={(e)=> {
                                 username.onChange(e)
@@ -131,27 +138,36 @@ export const StepOne = () => {
                         }}/>
                 
                 </div>
-                        
-                    {inpurErrorOne 
-                        ? <p className='registration__form-help' style={{color:' #F42C4F'}}> Используйте для логина  латинский алфавит и цифры</p>
-                        : <p className='registration__form-help'>
-                            { strUser.split(' ').map((i) => {
-                                   const key = Math.random();
-
-                                    // eslint-disable-next-line no-return-assign
-                                    return (i === 'errors') ? (countUser = 1 + countUser, <span key ={key} style={{color:' #F42C4F'}} > {arrUser[countUser -1]} </span>): ` ${i}`
-                            })}
-                        </p>
-                    }
-  
+                    
+                    <div className='identification__form-help' > 
+                        {inpurErrorOne 
+                            ? <span data-test-id='hint' style={{color:' #F42C4F'}}> {(data.username) ?  'Используйте для логина латинский алфавит и цифры'
+                                                                                                    : 'Поле не может быть пустым'}
+                                </span>
+                            : (errors.username && errors.username.type !== 'required' )
+                                            ? <span data-test-id='hint'>
+                                            { strUser.split(' ').map((i,index) => {
+                                                const key = Math.random()+ index;
+            
+                                                // eslint-disable-next-line no-return-assign
+                                                return (i === 'errors') 
+                                                    ? (countUser = 1 + countUser, <span key ={key} style={{color:' #F42C4F'}}> {arrUser[countUser -1]} </span>)
+                                                    : <span>{`${i} `}</span>
+                                            })}
+                                            </span>
+                                            : <span data-test-id='hint'> Используйте для логина латинский алфавит и цифры</span>
+                        }
+                    </div>
+                    
                 <div className={activeInputTwo} style={{borderBottom:`1px solid ${borderTwoColor}`}}>
-                    <label className='registration__form-label' 
+                    <label className='identification__form-label' 
                     htmlFor="password"> Пароль</label>
                     <input type={showPassword ? 'text' : 'password'}
-                        className='registration__form-input' 
+                        className='identification__form-input' 
                             {...password} 
+                            id='password'
                         onClick={() => setInpurErrorTwo(false)}
-                        onFocus={()=> setActiveInputTwo('registration__form-wrapper-active')}
+                        onFocus={()=> setActiveInputTwo('identification__form-wrapper-active')}
                         onBlur={(e)=> onBlurPassword(e)}
                         onChange={(e)=> {
                             password.onChange(e);
@@ -160,38 +176,45 @@ export const StepOne = () => {
 
                        {
                         (!errors.password && data.password.length !== 0)
-                            && <img className='registration__form-successful_сheck' src={successful_сheck} alt="successful сheck" /> 
+                            && <img  data-test-id= 'checkmark' className='identification__form-successful_сheck' src={successful_сheck} alt="successful сheck" /> 
                        }
                         
-                        <button className='registration__form-button_show' type='button' 
+                        <button className='identification__form-button_show' type='button' data-test-id = {(showPassword)? 'eye-opened' :  'eye-closed'} 
                             onClick={()=> setShowPassword(!showPassword)}>
                             <img src={(showPassword)? eye_open :  eye_closed} alt="eye"/>
                         </button>
                 </div>
 
-                {inpurErrorTwo
-                        ? <p className='registration__form-help' style={{color:' #F42C4F'}}> Пароль не менее 8 символов , с заглавной буквой и цифрой</p>
-                        : <p className='registration__form-help'>
-                            { strPassword.split(' ').map((i) => {
-                        
-                                   const key = Math.random();
+                <div className='identification__form-help' > 
+                        {inpurErrorTwo
+                            ? <span data-test-id='hint' style={{color:' #F42C4F'}}> {(data.password && errors.password) ?  'Пароль не менее 8 символов , с заглавной буквой и цифрой'
+                            : 'Поле не может быть пустым'}
+                                </span>
+                            : (errors.password && errors.password.type !== 'required' )
+                                            ? <span data-test-id='hint'>
+                                            { strPassword.split(',').map((i,index) => {
+                                                const key = Math.random()+ index;
 
-                                    // eslint-disable-next-line no-return-assign
-                                    return (i.includes('errors')) ? ( countPassword += 1, <span key ={key} style={{color:' #F42C4F'}} > { arrPassword[countPassword -1 ]} </span> ) : ` ${i}`
-                            })}
-                        </p>
-                    }
+                                                // eslint-disable-next-line no-return-assign
+                                                return (i.includes('errors')) 
+                                                    ? (countPassword = 1 + countPassword, <span key ={key} style={{color:' #F42C4F'}}> {arrPassword[countPassword -1]} </span>)
+                                                    : <span>{`${i} `}</span>
+                                            })}
+                                            </span>
+                                            : (!data.password && inpurErrorTwo) ? null : <span data-test-id='hint'> Пароль не менее 8 символов, с заглавной буквой и цифрой</span>
+                            }
+                    </div>
                
                 <input 
-                    className={(errors.password || errors.username)? 'registration__form-submit-block' : 'registration__form-submit'} 
+                    className={(errors.password || errors.username)? 'identification__form-submit-block' : 'identification__form-submit'} 
                     type="submit" value="следующий шаг"
                     disabled= {(inpurErrorTwo || inpurErrorOne) ? true : false }
                     />
             </form>
-            <div className="registration__transition">
-                <h4 className="registration__transition-title">Есть учётная запись?</h4>
-                <Link to='/auth' className="registration__transition-link"> войти 
-                    <img src={arrow}  className="registration__transition-icon" alt="arrow" />
+            <div className="identification__transition">
+                <h4 className="identification__transition-title">Есть учётная запись?</h4>
+                <Link to='/auth' className="identification__transition-link"> войти 
+                    <img src={arrow}  className="identification__transition-icon" alt="arrow" />
                 </Link>
             </div>
         </div>

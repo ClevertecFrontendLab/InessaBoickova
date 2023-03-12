@@ -1,4 +1,4 @@
-@use '../../base/mixins' as *;
+@use '../base/mixins' as *;
 
 .forgot-pass {
     margin: 0 auto;
@@ -73,7 +73,7 @@
     }
     &__info {
         @include fz12(0.2px,#727272,16px);
-        margin: 2px 0 0 0;
+        margin: 2px 0 0 10px;
     }
     &__transition {
         margin-top: 16px;

@@ -12,8 +12,8 @@ export const StepThree = () => {
     const dispatch = useDispatch()
     const registrationData = useSelector(state=> state.identification.registrationData)
     const {registrationUser} = useIdentificationServices()
-    const [activeInputOne , setActiveInputOne] = useState ('registration__form-wrapper');
-    const [activeInputTwo , setActiveInputTwo] = useState ('registration__form-wrapper');
+    const [activeInputOne , setActiveInputOne] = useState ('identification__form-wrapper');
+    const [activeInputTwo , setActiveInputTwo] = useState ('identification__form-wrapper');
     const [inpurErrorOne,setInpurErrorOne] = useState(false);
     const [inpurErrorTwo,setInpurErrorTwo] = useState(false);
 
@@ -47,27 +47,27 @@ export const StepThree = () => {
 
     const OnBlurInputPhone = (e) => {
         // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-        (e.target.value.length < 1 ) && (setActiveInputOne('registration__form-wrapper'), setInpurErrorOne(true))
+        (e.target.value.length < 1 ) && (setActiveInputOne('identification__form-wrapper'), setInpurErrorOne(true))
     }
 
     const OnBlurInputEmail = (e) => {
         // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-        (e.target.value.length < 1) && (setActiveInputTwo('registration__form-wrapper'), setInpurErrorTwo(true));
+        (e.target.value.length < 1) && (setActiveInputTwo('identification__form-wrapper'), setInpurErrorTwo(true));
     }
 
     const borderOneColor = (inpurErrorOne) ? '#F42C4F' : '#BFC4C9' ;
     const borderTwoColor = (errors.email || inpurErrorTwo) ? '#F42C4F' : '#BFC4C9' ;
 
     return  (
-        <div className="registration">
-            <h3 className='registration__title'> Регистрация </h3>
-            <h4 className="registration__subtitle"> 3 шаг из 3 </h4>
-                <form className='registration__form' onSubmit={(e) => handleSubmit(onSubmit(e))} noValidate={true}>
+        <div className="identification">
+            <h3 className='identification__title'> Регистрация </h3>
+            <h4 className="identification__subtitle"> 3 шаг из 3 </h4>
+                <form className='identification__form' onSubmit={(e) => handleSubmit(onSubmit(e))} noValidate={true} data-test-id='register-form'>
     
                     <div className={activeInputOne} style={{borderBottom:`1px solid ${borderOneColor}`}} >
-                        <label className='registration__form-label' htmlFor="phone"> Номер телефона </label>
+                        <label className='identification__form-label' htmlFor="phone"> Номер телефона </label>
                             <Controller 
-                                className='registration__form-input' 
+                                className='identification__form-input' 
                                 {...register('phone')}
                                 control={control}
                                 rules={{ pattern: /^((?!х).)*$/ }}
@@ -79,41 +79,52 @@ export const StepThree = () => {
                                         // eslint-disable-next-line @typescript-eslint/no-unused-expressions
                                         (e.target.value.includes('x'))? setInpurErrorOne(true) : setInpurErrorOne(false)
                                     }}
-                                    onFocus={()=> {setActiveInputOne('registration__form-wrapper-active');}}
+                                    onFocus={()=> {setActiveInputOne('identification__form-wrapper-active');}}
                                     onBlur={(e)=>OnBlurInputPhone(e) }
-                                    className='registration__form-input' 
+                                    className='identification__form-input' 
                                     mask={['+', '3','7','5',' ', '(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/,'-', /\d/, /\d/]}
                                     placeholderChar = 'x'
                                     guide={true}/>  
                             )}/>
                     </div> 
-                    {(inpurErrorOne)&& <p style={{color:' #F42C4F'}} className='registration__form-help' > В формате +375 (xx) xxx-xx-xx </p>}
+                    {(inpurErrorOne)&& <p data-test-id='hint' style={{color:' #F42C4F'}} className='identification__form-help' >{data.phone 
+                                                                                        ? ' В формате +375 (xx) xxx-xx-xx'
+                                                                                        : 'Поле не может быть пустым'} </p>}
+                    {data.phone && !inpurErrorOne && <p data-test-id='hint' className='identification__form-help' >
+                                                        В формате +375 (xx) xxx-xx-xx
+                                                    </p> }
                
                     <div className={activeInputTwo} style={{borderBottom:`1px solid ${borderTwoColor}`}}>
-                        <label className='registration__form-label' htmlFor="email">E-mail </label>
-                        <input type="email" className='registration__form-input' 
+                        <label className='identification__form-label' htmlFor="email">E-mail </label>
+                        <input type="email" className='identification__form-input' id='email'
                             {...email} 
                             onClick={() => setInpurErrorTwo(false)}
-                            onFocus={()=> setActiveInputTwo('registration__form-wrapper-active')}
+                            onFocus={()=> setActiveInputTwo('identification__form-wrapper-active')}
                             onBlur={(e)=> { OnBlurInputEmail(e)}}
                             onChange={(e)=> {   
                                 email.onChange(e);
                             }}/>
                     </div>
 
-                    {(errors.email || inpurErrorTwo) && <p  style={{color:' #F42C4F'}} className='registration__form-help' > Введите корректный e-mail </p>}
+                    {(errors.email || inpurErrorTwo) && <p data-test-id='hint'  
+                                            style={{color:' #F42C4F'}} className='identification__form-help' > 
+                                                                {data.email 
+                                                            ? 'Введите корректный e-mail'
+                                                            : 'Поле не может быть пустым'} 
+                                                         </p>}
               
-                    <input className={(inpurErrorOne || (errors.email || inpurErrorTwo)) ? 'registration__form-submit-block' : 'registration__form-submit'} 
+                    <input className={(inpurErrorOne || (errors.email || inpurErrorTwo)) 
+                                    ? 'identification__form-submit-block' 
+                                    : 'identification__form-submit'} 
                         type="submit" value="зарегистрироваться"
-                        disabled= {(inpurErrorTwo || inpurErrorOne) ? true : false }
-                        />
+                        disabled= {(inpurErrorTwo || inpurErrorOne) ? true : false }/>
                 </form>
-                <div className="registration__transition">
-                    <h4 className="registration__transition-title">Есть учётная запись?</h4>
-                    <Link to='/auth' className="registration__transition-link"> войти 
-                        <img src={arrow}  className="registration__transition-icon" alt="arrow" />
+                <div className="identification__transition">
+                    <h4 className="identification__transition-title">Есть учётная запись?</h4>
+                    <Link to='/auth' className="identification__transition-link"> войти 
+                        <img src={arrow}  className="identification__transition-icon" alt="arrow" />
                     </Link>
                 </div>
             </div>
         )
-}
+    }

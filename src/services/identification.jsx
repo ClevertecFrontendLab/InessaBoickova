@@ -76,7 +76,7 @@ export const useIdentificationServices = () => {
         
             .then (res => {
                 localStorage.setItem('token', res.data.jwt);
-                navigate('/books/all');
+                navigate('/books');
             })
             .catch(err => {
                 (err.response.status === 400) 

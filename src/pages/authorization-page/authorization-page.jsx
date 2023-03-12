@@ -9,11 +9,11 @@ export const AuthorizationPage = () => {
     const authorizationResult = useSelector(state => state.identification.authorizationResult)
 
     return (
-        <div className="authorization-page">
+        <div className="authorization-page" data-test-id='auth'>
             <h2 className="authorization-page__title"> Cleverland </h2>
             {loading && <Spinner/> }
-            {(authorizationResult !== 'error' && !loading) && <Authorization/> }
-            {(authorizationResult === 'error' && !loading) && <AuthorizationNotify/> }
+            {(authorizationResult !== 'error') && <Authorization/> }
+            {(authorizationResult === 'error' ) && <AuthorizationNotify/> }
 
         </div>
     )

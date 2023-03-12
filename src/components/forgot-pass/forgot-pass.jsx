@@ -1,7 +1,6 @@
 import { Fragment,useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch,useSelector } from 'react-redux'
-import { useLocation } from 'react-router'
 import { Link } from 'react-router-dom'
 
 import { setRegistrationStep } from '../../actions/actions'
@@ -51,12 +50,13 @@ const ForgotPassForm = () => {
             </Link>
             <h3 className='forgot-pass__title'> Восстановление пароля </h3>
             
-            <form className='forgot-pass__form' onSubmit={(e)=> handleSubmit(onSubmit(e))}>
+            <form className='forgot-pass__form' onSubmit={(e)=> handleSubmit(onSubmit(e))} data-test-id='send-email-form'>
     
                 <div className={activeInputOne} style={{borderBottom:`1px solid ${borderOneColor}`}}>
                     <label className='forgot-pass__form-label' htmlFor="email"> Email </label>
                     <input type="email" 
                         {...email}
+                        id='email'
                         className='forgot-pass__form-input' 
                         onClick={() => setInpurErrorOne(false)}
                             onFocus={()=> setActiveInputOne('forgot-pass__form-wrapper-active')}
@@ -65,8 +65,10 @@ const ForgotPassForm = () => {
                                 email.onChange(e);
                             }} />
                 </div>
-                {(forgotPassResult === 'errorSendEmail') && <p style={{color:' #F42C4F', marginLeft:'10px'}} className='forgot-pass__form-help' > error </p>}
-                {(errors.email || inpurErrorOne) && <p  style={{color:' #F42C4F'}} className='forgot-pass__form-help' > Введите корректный e-mail </p>}
+                {(forgotPassResult === 'errorSendEmail') && <p data-test-id='hint' style={{color:' #F42C4F', marginLeft:'10px'}} className='forgot-pass__form-help' > error </p>}
+
+                {(errors.email || inpurErrorOne) && <p  data-test-id='hint' style={{color:' #F42C4F'}} className='forgot-pass__form-help' > {data.email 
+                                                    ? 'Введите корректный e-mail'  : 'Поле не может быть пустым' } </p>}
                 <h5 className='forgot-pass__info'> 
                     На это email будет отправлено письмо с инструкциями <br/> по восстановлению пароля
                 </h5>

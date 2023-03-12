@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { useDispatch,useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import {setRegistrationResult,setRegistrationStep,setRegistrationSuccess} from '../../actions/actions'
 import { useIdentificationServices } from '../../services/identification';
@@ -32,7 +32,9 @@ export const RegistrationNotify = () => {
         }
     }
 
-    const onClean= ()=> {
+    const navigate = useNavigate();
+
+    const onClean= (link)=> {
         // eslint-disable-next-line no-negated-condition
         if(status !== 'error'){
             dispatch(setRegistrationResult(''));
@@ -41,6 +43,8 @@ export const RegistrationNotify = () => {
         }else {
             registrationUser(registrationData)
         }
+
+        navigate(link)
     }
 
     const elem = () => {
@@ -48,10 +52,13 @@ export const RegistrationNotify = () => {
         const {title,descr,textBtn,link} = data[status];
 
         return (
-            <div className="identification-notify">
+            <div className="identification-notify" data-test-id= 'status-block'>
                 <h2 className="identification-notify__title"> {title}</h2>
                 <p className="identification-notify__descr"> {descr} </p>
-                <Link to={link} className="identification-notify__button" onClick={()=> onClean()}> {textBtn} </Link>
+
+                <button className="identification-notify__button" type='button' onClick={()=> onClean(link)}> 
+                     {textBtn} 
+                 </button>
 
             </div>
             )

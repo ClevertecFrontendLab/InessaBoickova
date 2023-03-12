@@ -11,8 +11,8 @@ import { useIdentificationServices } from '../../services/identification'
 export const Authorization = () => {
     const dispatch = useDispatch();
     const authorizationResult = useSelector(state => state.identification.authorizationResult)
-    const [activeInputOne , setActiveInputOne] = useState ('authorization__form-wrapper');
-    const [activeInputTwo , setActiveInputTwo] = useState ('authorization__form-wrapper');
+    const [activeInputOne , setActiveInputOne] = useState ('identification__form-wrapper');
+    const [activeInputTwo , setActiveInputTwo] = useState ('identification__form-wrapper');
     const [inpurErrorOne,setInpurErrorOne] = useState(false);
     const [inpurErrorTwo,setInpurErrorTwo] = useState(false);
     const [showPassword , setShowPassword] = useState(false);
@@ -38,7 +38,7 @@ export const Authorization = () => {
 
     const onBlurPassword = (e)=> {
         if(e.target.value.length < 1){
-            setActiveInputTwo('authorization__form-wrapper');
+            setActiveInputTwo('identification__form-wrapper');
             setInpurErrorTwo(true);
         }else {
             setInpurErrorTwo(false);
@@ -47,7 +47,7 @@ export const Authorization = () => {
 
     const onBlurIdentifier = (e)=> {
         if(e.target.value.length < 1){
-            setActiveInputOne('authorization__form-wrapper');
+            setActiveInputOne('identification__form-wrapper');
             setInpurErrorOne(true)
         }else {
             setInpurErrorOne(false)
@@ -64,39 +64,41 @@ export const Authorization = () => {
     const errorStyle = (authorizationResult === 'error400') ? {color:' #363636', margin:'0 0 0 15px '}: {};
 
     return  (
-        <div className="authorization">
-            <h3 className='authorization__title'> Вход в личный кабинет </h3>
+        <div className="identification">
+            <h3 className='identification__title'> Вход в личный кабинет </h3>
             
-            <form className='authorization__form' 
+            <form className='identification__form'  data-test-id='auth-form'
              onSubmit= {(e)=> handleSubmit(onSubmit(e))} >
     
                 <div className={activeInputOne} style={{borderBottom:`1px solid ${borderOneColor}`}}>
-                    <label className='authorization__form-label' 
+                    <label className='identification__form-label' 
                             htmlFor="identifier"> Логин 
                     </label>
                     <input
-                            className='authorization__form-input' 
-                            {...identifier} 
-                            type="text"
-                            onFocus={()=> setActiveInputOne('authorization__form-wrapper-active')} 
-                            onBlur={(e)=> onBlurIdentifier(e)}
-                            onChange={(e)=> {
-                                    identifier.onChange(e);
-                                    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-                                (e.target.value.length > 0) && setInpurErrorOne(false)
-                            }}
-                            name="identifier"
-                
-                       />
+                        className='identification__form-input' 
+                        {...identifier} 
+                        type="text"
+                        id='identifier'
+                        onFocus={()=> setActiveInputOne('identification__form-wrapper-active')} 
+                        onBlur={(e)=> onBlurIdentifier(e)}
+                        onChange={(e)=> {
+                                identifier.onChange(e);
+                                // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+                            (e.target.value.length > 0) && setInpurErrorOne(false)
+                        }}
+                        name="identifier"/>
+                        
                 </div>
-                {(inpurErrorOne && authorizationResult !== 'error400')  && <p className='authorization__form-help' style={{color:' #F42C4F'}}> Поле не может быть пустым</p>}
+                {(inpurErrorOne && authorizationResult !== 'error400')  && <p data-test-id='hint' className='identification__form-help' 
+                                                        style={{color:' #F42C4F'}}> Поле не может быть пустым</p>}
                
                 <div className={activeInputTwo} style={{borderBottom:`1px solid ${borderTwoColor}`}}>
-                    <label className='authorization__form-label' htmlFor="password"> Пароль</label>
+                    <label className='identification__form-label' htmlFor="password"> Пароль</label>
                     <input type={showPassword ? 'text' : 'password'}
                         {...password} 
-                        className='authorization__form-input'
-                        onFocus={()=> setActiveInputTwo('authorization__form-wrapper-active')}
+                        id='password'
+                        className='identification__form-input'
+                        onFocus={()=> setActiveInputTwo('identification__form-wrapper-active')}
                         onBlur={(e)=> onBlurPassword(e)}
                         onChange={(e)=>{
                             identifier.onChange(e);
@@ -104,27 +106,35 @@ export const Authorization = () => {
                             (e.target.value.length > 0) && setInpurErrorTwo(false)
                         }}/>
 
-                    <button className='authorization__form-button_show' type='button' 
+                    {data.password &&  <button className='identification__form-button_show' 
+                                                type='button'  
+                                                data-test-id = {(showPassword)? 'eye-opened' :  'eye-closed'} 
                         onClick={()=> setShowPassword(!showPassword)}>
                         <img src={(showPassword)? eye_open :  eye_closed} alt="eye"/>
-                    </button>
+                    </button>}
                 </div>
 
-                {(inpurErrorTwo && authorizationResult !== 'error400') && <p className='authorization__form-help' style={{color:' #F42C4F'}}> Поле не может быть пустым</p>}
+                {(inpurErrorTwo && authorizationResult !== 'error400') && <p data-test-id='hint' className='identification__form-help' 
+                                                                style={{color:' #F42C4F'}}> Поле не может быть пустым</p>}
 
-                {authorizationResult === 'error400' && <p className='authorization__form-help' style={{color:' #F42C4F', margin: '20px 0 0 15px'}}> Неверный логин или пароль!</p> }
+                {authorizationResult === 'error400' && <p className='identification__form-help' 
+                                        data-test-id='hint' 
+                                        style={{color:' #F42C4F', margin: '20px 0 0 15px'}}> 
+                                        Неверный логин или пароль!</p> }
 
-                <Link to='/forgot-pass' className="authorization__form-link"  style={errorStyle} > 
+                <Link to='/forgot-pass' className="identification__form-link"  style={errorStyle} > 
                         {authorizationResult === 'error400'
                                 ? 'Востоновить?'
                                 : 'Забыли логин или пароль?'  } </Link> 
-
-                <input  className={(inpurErrorTwo || inpurErrorOne)? 'authorization__form-submit-block' : 'authorization__form-submit'} 
-                        type="submit"  value="вход"/>
+                <button type='submit' className={(inpurErrorTwo || inpurErrorOne)
+                            ? 'identification__form-submit-block'
+                            : 'identification__form-submit'} >
+                    Вход
+                </button>
             </form>
-            <div className="authorization__transition">
-                <h4 className="authorization__transition-title">Нет учётной записи?</h4>
-                <Link to='/registration' onClick={()=> dispatch(setRegistrationStep(1))} className="authorization__transition-link"> Регистрация</Link>
+            <div className="identification__transition">
+                <h4 className="identification__transition-title">Нет учётной записи?</h4>
+                <Link to='/registration' onClick={()=> dispatch(setRegistrationStep(1))} className="identification__transition-link"> Регистрация</Link>
             </div>
         </div>
     )

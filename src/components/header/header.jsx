@@ -1,14 +1,16 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
+import { useState } from 'react';
 import { useDispatch,useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 
-import {openNavMenu} from '../../actions/actions'
+import {openNavMenu,setAuthorizationResult} from '../../actions/actions'
 import user from '../../resources/icon/avatar.png';
 import logo from '../../resources/icon/logo.png';
 
 export const Header = () => {
-        const dispatch = useDispatch();
+        const [showPanel, setShowPanel] = useState(false)
+                const dispatch = useDispatch();
         const navMenuOpen = useSelector(state=> state.listMenu.navMenuOpen);
 
         const disableScrolling = ()=> {
@@ -33,6 +35,12 @@ export const Header = () => {
                 dispatch(openNavMenu()); 
         }
 
+        const onExit = () => {
+                localStorage.removeItem('token');
+                dispatch(setAuthorizationResult(''))
+        }
+        const dataExit = (window.innerWidth < 769) ? null: 'exit-button' ;
+        
         return (
                 <header className='header'>
                         <div className="container">
@@ -54,11 +62,24 @@ export const Header = () => {
                                                 <h1>Библиотека</h1>
                                         </div>
 
-                                        <div className="header__user">
+                                     
+                                        <button className="header__user" type='button' onClick={()=> setShowPanel(!showPanel)}>
                                                 <h3>Привет, Иван!</h3>
                                                 <img src={user} alt="user" />
-                                        </div>
+                                        </button>
 
+                                        <div className={showPanel ? 'header__user-panel-show' : 'header__user-panel'}> 
+                                   
+                                                <Link to='/profile' className='header__user-panel_link' >
+                                                        Профиль
+                                                </Link>
+                                      
+                                                <Link to='/auth'onClick={()=> onExit()} data-test-id = {dataExit}
+                                                        className='header__user-panel_link'>
+                                                        Выход
+                                                </Link>
+                                     
+                                        </div>
                                 </div>
                         </div>
                 </header>

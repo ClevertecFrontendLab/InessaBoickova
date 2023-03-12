@@ -10,12 +10,13 @@ import { useIdentificationServices } from '../../services/identification'
 
 import { ForgotPassNotify } from './forgot-pass-notify'
 
+// eslint-disable-next-line complexity
 const UpdatePasswordForm = () => {
     const location = useLocation();
     const {UpdatePasswordUser} = useIdentificationServices()
    
-    const [activeInputOne , setActiveInputOne] = useState ('authorization__form-wrapper');
-    const [activeInputTwo , setActiveInputTwo] = useState ('authorization__form-wrapper');
+    const [activeInputOne , setActiveInputOne] = useState ('identification__form-wrapper');
+    const [activeInputTwo , setActiveInputTwo] = useState ('identification__form-wrapper');
 
     const [inpurErrorOne,setInpurErrorOne] = useState(false);
     const [inpurErrorTwo,setInpurErrorTwo] = useState(false);
@@ -35,43 +36,40 @@ const UpdatePasswordForm = () => {
     const passwordConfirmation = register('passwordConfirmation', { required: true})
 
     const password = register('password', { required: true, 
-                                validate: {
-                                    onLength  : (value) => /(?=^.{8,}$)/.test(value) || 'не менее 8 символов,',
-                                    onlyUppercase: (value) => /(?=.*?[A-Z])/.test(value) || 'с заглавной буквой',
-                                    onlyNumber: (value) => /(?=.*?[0-9])/.test(value) || 'и цифрой',
-                                    }
+                            validate: {
+                                onLength  : (value) => /(?=^.{8,}$)/.test(value) || 'не менее 8 символов,',
+                                onlyUppercase: (value) => /(?=.*?[A-Z])/.test(value) || 'с заглавной буквой',
+                                onlyNumber: (value) => /(?=.*?[0-9])/.test(value) || 'и цифрой',
                                 }
-                            )
+                            }
+                        )
   
     const onSubmit = (e) => {
         e.preventDefault();
-     
         if (data.password === data.passwordConfirmation){
-
             UpdatePasswordUser({...data,  'code': location.search.substring(6)})
         }
     }
  
     const onBlurPasswordConfirmation = (e) => {
-
             // eslint-disable-next-line @typescript-eslint/no-unused-expressions
             ((errors.passwordConfirmation || e.target.value === '') || (e.target.value !== data.password) )
             ? setInpurErrorTwo(true)
             : setInpurErrorTwo(false);
 
             // eslint-disable-next-line @typescript-eslint/no-unused-expressions, no-negated-condition
-            (e.target.value !== '') ? setActiveInputTwo('authorization__form-wrapper-active')
-                            : setActiveInputTwo('authorization__form-wrapper')
+            (e.target.value !== '') ? setActiveInputTwo('identification__form-wrapper-active')
+                            : setActiveInputTwo('identification__form-wrapper')
     }
 
     const onBlurPassword = (e) => {
         // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-        (errors.password || e.target.value === '' )
+        (errors.password || e.target.value === '')
                             ? setInpurErrorOne(true)
                             : setInpurErrorOne(false);
         // eslint-disable-next-line @typescript-eslint/no-unused-expressions, no-negated-condition
-        (e.target.value !== '') ? setActiveInputOne('authorization__form-wrapper-active')
-                                : setActiveInputOne('authorization__form-wrapper')
+        (e.target.value !== '') ? setActiveInputOne('identification__form-wrapper-active')
+                                : setActiveInputOne('identification__form-wrapper')
     }
 
     const setErrorText= (string,type) => {
@@ -81,14 +79,16 @@ const UpdatePasswordForm = () => {
 
         // eslint-disable-next-line no-restricted-syntax, guard-for-in, no-unreachable-loop
         for ( const [,value] of Object.entries(types)) {
-            arr.push(value)
-            str = str.replace(value, 'errors');
+            if(value !== true){
+                arr.push(value)
+                str = str.replace(value, 'errors');
+            }
         }
 
         return {str,arr};
     }
-
-    const onChangePassword = (()=> setErrorText('Пароль не менее 8 символов, с заглавной буквой и цифрой', errors.password))
+    // eslint-disable-next-line consistent-return
+    const onChangePassword = (()=>setErrorText('Пароль,не менее 8 символов,, с заглавной буквой, и цифрой', errors.password) )
 
     const passwordErorr = onChangePassword();
 
@@ -97,84 +97,98 @@ const UpdatePasswordForm = () => {
     let countPassword = 0;
 
     return  (
-        <div className="authorization">
-            <h3 className='authorization__title'> Восстановление пароля </h3>
+        <div className="identification">
+            <h3 className='identification__title'> Восстановление пароля </h3>
          
-                <form className='authorization__form' 
+                <form className='identification__form' data-test-id='reset-password-form'
                     onSubmit={(e) => handleSubmit(onSubmit(e))}>
 
                     <div className={activeInputOne} style={{borderBottom:`1px solid ${borderOneColor}`}}>
-                        <label className='authorization__form-label' 
+                        <label className='identification__form-label' 
                              htmlFor="password"> 
                              Пароль
                         </label>
                         <input type={showPasswordOne ? 'text' : 'password'}
-                            className='authorization__form-input' 
+                            className='identification__form-input' 
                                 {...password} 
-                            onClick={() => setInpurErrorOne(false)}
-                            onFocus={()=> setActiveInputOne('authorization__form-wrapper-active')}
-                            onBlur={(e)=> onBlurPassword(e)}
-                            onChange={(e)=> {
-                                password.onChange(e);
-                                onChangePassword()
-                            }}/>
+                                id='password'
+                                onClick={() => setInpurErrorOne(false)}
+                                onFocus={()=> setActiveInputOne('identification__form-wrapper-active')}
+                                onBlur={(e)=> onBlurPassword(e)}
+                                onChange={(e)=> {
+                                    password.onChange(e);
+                                    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+                                      e.target.value < 0 ? setInpurErrorOne(true): onChangePassword(e)
+                                }}/>
 
-                            {
-                            (!errors.password && data.password.length !== 0)
-                                && <img className='registration__form-successful_сheck' src={successful_сheck} alt="successful сheck" /> 
-                            }
+                            {(!errors.password && data.password.length !== 0)
+                                && <img className='identification__form-successful_сheck' data-test-id= 'checkmark' src={successful_сheck} alt="successful сheck" /> }
                             
-                            {data.password.length >= 1 && <button className='authorization__form-button_show' type='button' 
-                                onClick={()=> setShowPasswordOne(!showPasswordOne)}>
-                                <img src={(showPasswordOne)? eye_open :  eye_closed} alt="eye"/>
-                            </button>}
+                            {data.password.length >= 1 
+                                &&  <button className='identification__form-button_show' 
+                                        type='button' data-test-id = {(showPasswordOne)? 'eye-opened' :  'eye-closed'} 
+                                        onClick={()=> setShowPasswordOne(!showPasswordOne)}>
+                                        <img src={(showPasswordOne)? eye_open :  eye_closed} alt="eye"/>
+                                    </button>}
                     </div>
 
-                    {inpurErrorOne
-                            ? <p className='registration__form-help' style={{color:' #F42C4F'}}> Пароль не менее 8 символов , с заглавной буквой и цифрой</p>
-                            : <p className='registration__form-help'>
-                                { strPassword.split(' ').map((i) => {
-                            
-                                        const key = Math.random();
+                    <div className='identification__form-help' > 
+                        {inpurErrorOne 
+                            ? <span data-test-id='hint' style={{color:' #F42C4F'}}> 
+                                        {(data.password && errors.password) 
+                                                    ?  'Пароль не менее 8 символов , с заглавной буквой и цифрой'
+                                                    : 'Поле не может быть пустым'}
+                                </span>
+                            : (errors.password && errors.password.type !== 'required' )
+                                            ? <span data-test-id='hint'>
+                                            { strPassword.split(',').map((i,index) => {
+                                                const key = Math.random()+ index;
 
-                                        // eslint-disable-next-line no-return-assign
-                                        return (i.includes('errors')) ? ( countPassword += 1, <span key ={key} style={{color:' #F42C4F'}} > { arrPassword[countPassword -1 ]} </span> ) : ` ${i}`
-                                })}
-                            </p>
+                                                // eslint-disable-next-line no-return-assign
+                                                return (i.includes('errors')) 
+                                                    ? (countPassword = 1 + countPassword, <span key ={key} style={{color:' #F42C4F'}}> {arrPassword[countPassword -1]} </span>)
+                                                    : <span>{`${i} `}</span>
+                                            })}
+                                            </span>
+                                            : (!data.password && inpurErrorOne) ? null : <span data-test-id='hint'> Пароль не менее 8 символов, с заглавной буквой и цифрой</span>
+
                         }
+                    </div>
 
                     <div className={activeInputTwo} style={{borderBottom:`1px solid ${borderTwoColor}`}} >
-                        <label className='authorization__form-label'
+                        <label className='identification__form-label'
                                 htmlFor="passwordConfirmation">
                                 Повторите пароль
                         </label>
                         <input type={showPasswordTwo ? 'text' : 'password'}
                             {...passwordConfirmation}
-                                className='authorization__form-input' 
-                                onFocus={()=> setActiveInputTwo('authorization__form-wrapper-active')}
+                                id='passwordConfirmation'
+                                className='identification__form-input' 
+                                onFocus={()=> setActiveInputTwo('identification__form-wrapper-active')}
                                 onBlur={(e)=> onBlurPasswordConfirmation(e)}
+                                onClick={()=> setInpurErrorTwo(false)}
                                 onChange={(e)=> {
                                     passwordConfirmation.onChange(e);
-                                    // eslint-disable-next-line @typescript-eslint/no-unused-expressions, no-negated-condition
-                                    (data.password !== e.target.value)
-                                                ? setInpurErrorTwo(true) : setInpurErrorTwo(false) 
                             }}/>
 
-                        {data.passwordConfirmation.length >= 1 && <button className='authorization__form-button_show' type='button' 
+                        {data.passwordConfirmation.length >= 1 && <button className='identification__form-button_show' type='button' data-test-id = {(showPasswordTwo)? 'eye-opened' :  'eye-closed'}
                             onClick={()=> setShowPasswordTwo(!showPasswordTwo)}>
                             <img src={(showPasswordTwo)? eye_open :  eye_closed} alt="eye"/>
                         </button>}
-                    
                     </div>
-                                            
-                    <input 
-                        className={(errors.password || inpurErrorTwo)? 'authorization__form-submit-block' : 'authorization__form-submit'} 
+
+                    {(inpurErrorTwo)&& <span className='identification__form-help' data-test-id='hint' style={{color:' #F42C4F'}}> 
+
+                    {(data.password !== data.passwordConfirmation && data.passwordConfirmation.length > 0) ? 'Пароли не совпадают' :'Поле не может быть пустым '} </span> }
+                    
+                    <input className={(errors.password || inpurErrorTwo)
+                                ? 'identification__form-submit-block' 
+                                : 'identification__form-submit'} 
                         type="submit" value="сохранить изменения"
-                        disabled= {(inpurErrorTwo || inpurErrorOne) ? true : false }
-                        />
+                        disabled= {(inpurErrorTwo || inpurErrorOne) ? true : false }/>
                 </form>
-                <div className="authorization__transition">
-                    <h4 className="authorization__transition-title" style={{textAlign:'start'}}> 
+                <div className="identification__transition">
+                    <h4 className="identification__transition-title" style={{textAlign:'start'}}> 
                         После сохранения войдите в библиотеку, используя новый пароль
                     </h4>
                 </div>

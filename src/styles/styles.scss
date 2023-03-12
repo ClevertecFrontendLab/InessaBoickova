@@ -3,23 +3,17 @@
 @import url(./blocks/pages/registration-page.scss);
 @import url(./media/pages/registration-page.scss);
 
-@import url(./blocks/registration/registration.scss);
-@import url(./media/registration/registration.scss);
-
 @import url(./blocks/identification-notify.scss);
 @import url(./media/identification-notify.scss);
+
+@import url(./blocks/identification.scss);
+@import url(./media/identification.scss);
 
 @import url(./blocks/pages/authorization-page.scss);
 @import url(./media/pages/authorization-page.scss);
 
-@import url(./blocks/authorization/authorization.scss);
-@import url(./media/authorization/authorization.scss);
-
-@import url(./blocks/authorization/authorization-notify.scss);
-@import url(./media/authorization/authorization-notify.scss);
-
-@import url(./blocks/forgot-pass/forgot-pass.scss);
-@import url(./media/forgot-pass/forgot-pass.scss);
+@import url(./blocks/forgot-pass.scss);
+@import url(./media/forgot-pass.scss);
 
 @import url(./blocks/pages/forgot-pass-page.scss);
 @import url(./media/pages/forgot-pass-page.scss);

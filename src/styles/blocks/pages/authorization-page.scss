@@ -1,6 +1,7 @@
 @use '../../base/mixins' as *;
 
 .authorization-page {
+    position: relative;
     width: 100%;
     height: 100vh;
     background: $gradient-color;
@@ -12,4 +13,6 @@
         @include fz32(0.1px,#FFFFFF,40px);
         text-align: center;
     }
+
+
 }

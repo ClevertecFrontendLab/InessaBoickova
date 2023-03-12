@@ -19,8 +19,8 @@ export const Registration = () => {
       
         <Fragment>
             {loading && <Spinner/>}
-            {(registrationSuccess && !loading)  && <RegistrationNotify/>}
-            {(!loading && !registrationSuccess) &&  stepRegistration}
+            {(registrationSuccess)  && <RegistrationNotify/>}
+            {(!registrationSuccess) &&  stepRegistration}
         </Fragment>
     )
 }

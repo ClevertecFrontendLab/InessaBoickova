@@ -10,7 +10,7 @@ export const ForgotPassPage = () => {
     const loading = useSelector(state => state.book.loading);
 
     return (
-        <div className="forgot-pass-page">
+        <div className="forgot-pass-page" data-test-id='auth'>
             <h2 className="forgot-pass-page__title"> Cleverland </h2>
 
             {loading && <Spinner/>}

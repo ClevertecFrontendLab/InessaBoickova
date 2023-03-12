@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { useDispatch,useSelector } from 'react-redux';
-import { Link,useLocation } from 'react-router-dom';
+import { useLocation,useNavigate } from 'react-router-dom';
 
 import {setForgotPassResult } from '../../actions/actions';
 
@@ -8,7 +8,8 @@ import {setForgotPassResult } from '../../actions/actions';
 export const ForgotPassNotify = () => {
     const status = useSelector(state => state.identification.forgotPassResult);
     const dispatch = useDispatch();
-    const location = useLocation()
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const data = {
         successSendEmail: {
@@ -29,10 +30,11 @@ export const ForgotPassNotify = () => {
             link: `/forgot-pass${location.search}`
         }
     }
-    const goBack = ()=> {
+    const goBack = (link)=> {
         if(status === 'errorSaveData'){
             dispatch(setForgotPassResult(''))
         }
+        navigate(link)
     }
 
     const elem = () => {
@@ -40,10 +42,10 @@ export const ForgotPassNotify = () => {
          const {title,descr,textBtn,link} = data[status];
 
          return (
-             <div className="identification-notify">
+             <div className="identification-notify" data-test-id= 'status-block'>
                  <h2 className="identification-notify__title"> {title}</h2>
                  <p className="identification-notify__descr"> {descr} </p>
-                 {textBtn && <Link to={link} className="identification-notify__button" onClick={()=> goBack()}> {textBtn} </Link>}
+                 {textBtn && <button to={link} type='button' className="identification-notify__button" onClick={()=> goBack(link)}> {textBtn} </button>}
              </div>
              )
          }

@@ -21,6 +21,7 @@ $grey-color: #A7A7A7;
     text-transform: uppercase;
     color: #FFFFFF;
     border: none;
+    text-align: center; 
 }
 
 @mixin fz32($letter-spacing: 0.1px ,$color:$main-text-color,$line-height: 40px) {

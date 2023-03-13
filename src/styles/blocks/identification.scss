@@ -24,12 +24,8 @@
             @include fz12();
         }
         &-help {
+            @include fz12();
             margin-top: 2px;
-            font-weight: 500;
-            font-size: 12px;
-            line-height: 16px;
-            letter-spacing: 0.2px;
-            color: #A7A7A7;
         }
         &-wrapper {
             position: relative;
@@ -55,7 +51,6 @@
             height: 100%;
             border: none;
             outline: 0;
-            border:none; 
         }
         &-label {
             @include fz14(0.1px,$main-text-color,18px);

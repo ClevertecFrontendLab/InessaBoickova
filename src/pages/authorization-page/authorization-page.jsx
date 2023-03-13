@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux'
 
 import { Authorization } from '../../components/authorization/authorization'
 import { AuthorizationNotify } from '../../components/authorization/authorization-notify'
+import { ModalRateBook } from '../../components/modal/rate-book'
 import { Spinner } from '../../components/spinner/spinner'
 
 export const AuthorizationPage = () => {
@@ -10,10 +11,12 @@ export const AuthorizationPage = () => {
 
     return (
         <div className="authorization-page" data-test-id='auth'>
-            <h2 className="authorization-page__title"> Cleverland </h2>
+            {/* <h2 className="authorization-page__title"> Cleverland </h2>
             {loading && <Spinner/> }
             {(authorizationResult !== 'error') && <Authorization/> }
-            {(authorizationResult === 'error' ) && <AuthorizationNotify/> }
+            {(authorizationResult === 'error' ) && <AuthorizationNotify/> } */}
+
+            <ModalRateBook/>
 
         </div>
     )

@@ -1,0 +1,42 @@
+@media(max-width:580px) {
+    .rate-book {
+        &__wrapper {
+            padding: 42px 16px 32px ;
+            width: 288px;
+            height: 438px;
+        }
+        &__header {
+            &-title {
+                font-size: 18px;
+                line-height: 28px;
+            }
+            &-close {
+                right: 28px;
+                top: 28px;
+                width: 16px;
+                height: 16px;
+                span:before, span:after {
+                    position: absolute;
+                    content: ' ';
+                    height: 15px;
+                    width: 1.5px;
+                }
+            }
+        }
+        &__score {
+            margin-top: 24px;
+        }
+        &__review {
+            margin-top: 28px;
+            &-textarea {
+                width: 256px;
+            }
+        }
+        &__btn {
+            width: 256px;
+            height: 40px;
+            font-size: 12px;
+            line-height: 18px;
+        }
+    }
+}

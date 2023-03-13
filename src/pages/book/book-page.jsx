@@ -17,7 +17,7 @@ export const BookPage = () => {
                 <Header/>
                 <BreadCrumbs/>
             </div>
-            {error ? <ErrorMessage/> :  <Book/>  }
+            {error ? <ErrorMessage status='erorrLoadingBooksList' /> :  <Book/>  }
             <Footer/>
         </section>
     )

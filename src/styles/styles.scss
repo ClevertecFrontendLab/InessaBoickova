@@ -1,8 +1,26 @@
 @import url(./base/_fonts.scss);
 
+@import url(./blocks/pages/registration-page.scss);
+@import url(./media/pages/registration-page.scss);
+
+@import url(./blocks/identification-notify.scss);
+@import url(./media/identification-notify.scss);
+
+@import url(./blocks/identification.scss);
+@import url(./media/identification.scss);
+
+@import url(./blocks/pages/authorization-page.scss);
+@import url(./media/pages/authorization-page.scss);
+
+@import url(./blocks/forgot-pass.scss);
+@import url(./media/forgot-pass.scss);
+
+@import url(./blocks/pages/forgot-pass-page.scss);
+@import url(./media/pages/forgot-pass-page.scss);
+
 @import url(./blocks/bread-cumbs.scss);
 @import url(./media/bread-cumbs.scss);
-@import url(./blocks/book-page.scss);
+@import url(./blocks/pages/book-page.scss);
 
 @import url(./blocks/book-list.scss);
 @import url(./media/book-list.scss);
@@ -22,11 +40,11 @@
 @import url(./blocks/nav-menu.scss);
 @import url(./media/nav-menu.scss);
 
-@import url(./blocks/main-page.scss);
-@import url(./media/main-page.scss);
+@import url(./blocks/pages/main-page.scss);
+@import url(./media/pages/main-page.scss);
 
-@import url(./blocks/terms-page.scss);
-@import url(./media/terms-page.scss);
+@import url(./blocks/pages/terms-page.scss);
+@import url(./media/pages/terms-page.scss);
 
 @import url(./media/text-contract.scss);
 @import url(./blocks/text-contract.scss);
@@ -42,6 +60,8 @@
 
 @import url(./blocks/empty-book-list.scss);
 @import url(./media/empty-book-list.scss);
+
+
 
 
 

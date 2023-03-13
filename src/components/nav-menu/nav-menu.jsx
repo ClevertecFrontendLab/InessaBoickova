@@ -4,10 +4,10 @@ import { NavLink , useLocation } from 'react-router-dom';
 import classNames from 'classnames';
 import { createSelector } from 'reselect';
 
-import {hideListMenu,openNavMenu,setActiveFilter,showListMenu} from '../../actions/actions'
+import {hideListMenu,openNavMenu,setActiveFilter,setAuthorizationResult,showListMenu} from '../../actions/actions'
 import close_vector from '../../resources/icon/close_vector.svg';
 import raise_vector from '../../resources/icon/raise_vector.svg';
-import { useService } from '../../services/services';
+import { useBooksServices } from '../../services/books';
 
 export const NavMenu = () => {
     const location = useLocation();
@@ -17,7 +17,7 @@ export const NavMenu = () => {
     const loading = useSelector(state => state.book.loading);
     const error = useSelector(state => state.book.error);
     const ref = useRef();
-    const {getListOfGenres} = useService();
+    const {getListOfGenres} = useBooksServices();
 
     const listSelector = createSelector(
         (state) => state.book.booksList,
@@ -45,7 +45,7 @@ export const NavMenu = () => {
     
 
     useEffect (()=> {
-        if ( location.pathname !== '/books' && window.innerWidth < 769 && !error ){
+        if ( location.pathname !== '/books/all' && window.innerWidth < 769 && !error ){
             dispatch(hideListMenu());
             dispatch(openNavMenu());
         }
@@ -72,6 +72,11 @@ export const NavMenu = () => {
         }
 
     },[dispatch, navMenuOpen]);
+
+    const onExit = () => {
+        localStorage.removeItem('token');
+        dispatch(setAuthorizationResult(''))
+    }
 
     const testShowcase = (window.innerWidth < 769) ? 'burger-showcase' : 'navigation-showcase';
     const testTerms =(window.innerWidth < 769) ? 'burger-terms': 'navigation-terms';
@@ -102,8 +107,8 @@ export const NavMenu = () => {
     })
    
     return (
-        <section className={classNames('menu', {visible : navMenuOpen})} ref={ref} data-test-id='burger-navigation' >
-            <ul className='menu__list' > 
+        <section className={classNames('menu', {visible : navMenuOpen})} ref={ref} data-test-id='burger-navigation'>
+            <ul className='menu__list'> 
                    
                 <div className='menu__list-wrap'>
                     <NavLink to='/books' className={({isActive}) => isActive ? 'active_link' : 'menu__link-main'}>
@@ -149,7 +154,7 @@ export const NavMenu = () => {
                     </li>
 
                     <li className='menu__hide_link'>
-                        <NavLink to='/exit'
+                        <NavLink to='/auth' onClick={()=> onExit()} data-test-id = 'exit-button'
                             className={({isActive}) => isActive ? 'menu__link-main' : 'menu__link-main'}>
                                 Выход
                         </NavLink>

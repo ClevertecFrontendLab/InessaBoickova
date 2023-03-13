@@ -6,7 +6,7 @@ import { createSelector } from 'reselect';
 
 import { useHooks } from '../../hooks/hooks';
 import cat from '../../resources/img/cat.png'
-import { useService } from '../../services/services';
+import { useBooksServices } from '../../services/books';
 import { EmptyBookList } from '../empty-book-list/empty-book-list';
 import { Spinner } from '../spinner/spinner';
 
@@ -49,7 +49,7 @@ export const BookList = () => {
     const styleCard = useSelector(state=> state.bookListStyle.style);
     const loading = useSelector(state=> state.book.loading);
     const error = useSelector(state=> state.book.error);
-    const {getBooksList} = useService();
+    const {getBooksList} = useBooksServices();
     const {setStar} = useHooks ();
     const {category} = useParams();
 

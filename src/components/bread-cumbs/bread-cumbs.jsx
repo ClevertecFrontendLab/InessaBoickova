@@ -2,7 +2,7 @@ import { useDispatch,useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { setBooksList } from '../../actions/actions';
-import { useService } from '../../services/services';
+import { useBooksServices } from '../../services/books';
 
 export const BreadCrumbs = () => {
     const dispatch = useDispatch();
@@ -10,7 +10,7 @@ export const BreadCrumbs = () => {
     const book = useSelector(state=> state.book.book);
     const error = useSelector(state=> state.book.error);
     const navigate = useNavigate();
-    const {getBooksList} = useService()
+    const {getBooksList} = useBooksServices()
     const goBack = () => {
         navigate(-1);
         dispatch(setBooksList([]))

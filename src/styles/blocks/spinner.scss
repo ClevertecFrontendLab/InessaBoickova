@@ -1,4 +1,4 @@
-@use '../../styles/base/mixins' as *;
+@use '../base/mixins' as *;
 
 .spinner {
     z-index: 20;
@@ -10,6 +10,7 @@
     width: 68.75px;
     height: 68.75px;
     &_overlay {
+        z-index: 15;
         position: fixed;
         top: 0;
         left: 0;
